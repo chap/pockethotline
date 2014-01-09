@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="span7">
+    <div class="clearfix widget">
+      <h3 class="with-pill-nav">Hotline Activity</h3>
+      <ul class="nav nav-pills">
+        <li class="active"><%= link_to_function 'All', "$('#activites').html(''); makeActiveTab($(this)); $.get('#{activities_url(:format => :js)}');" %></li>
+        <li><%= link_to_function 'Mine', "$('#activites').html(''); makeActiveTab($(this)); $.get('#{user_activities_url(:current, :format => :js)}');" %></li>
+      </ul>
+      <%= form_for(Activity.new, :remote => true) do |f| %>
+        <%= f.text_area :body, :class => 'activity-update', :placeholder => 'Talk with the other hotline operators...' %>
+        <%= f.submit 'Share', :class => 'btn btn-inverse', :style => 'float:right;' %>
+      <% end %>
+    </div>
+
+    <div id="activities">
+      <%= render @activites %>
+    </div>
+  </div>
+  <div class="span4 offset1">
+    <div class="clearfix widget">
+      <h3 class="with-pill-nav">Operators</h3>
+      <ul class="nav nav-pills">
+        <li class="active"><%= link_to_function 'On Call', "makeActiveTab($(this)); $('#oncall-operators').show(); $('#all-operators').hide();" %></li>
+        <li><%= link_to_function 'All', "makeActiveTab($(this)); $('#oncall-operators').hide(); $('#all-operators').show();" %></li>
+        <% if admin? %>
+          <li>
+            <%= link_to 'Invite', new_user_path, "data-controls-modal" => 'invite_modal', "data-backdrop" => "static" %>
+          </li>
+          <%= render 'users/invite_modal' %>
+        <% end %>
+      </ul>
+      <div id="operators">
+        <%= render 'users/operators_grid' %>
+      </div>
+    </div>
+
+    <div class="clearfix widget">
+      <h3 class="with-pill-nav">My Schedule</h3>
+      <ul class="nav nav-pills">
+        <li><%= link_to 'Edit', user_oncall_schedules_path(:current) %></li>
+      </ul>
+      <ul class="thumbnails">
+        <% schedules = current_user.oncall_schedules %>
+        <% (0..4).each do |i| %>
+          <% day = i.days.from_now%>
+          <% schedule = schedules.select{|s| s.wday == day.to_date.cwday}.first %>
+          <div id="schedule_<%= i %>" title="<%= "<strong>#{schedule.nil? ? 'Not Scheduled' : schedule.to_abbrev}</strong><br />#{day.strftime("%A")}" %>s" class="schedule-day <%= 'scheduled' if schedule.present? %>">
+            <div class="month"><%= day.strftime("%b")%></div>
+            <div class="day"><%= day.strftime("%e")%></div>
+          </div>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="clearfix widget">
+      <h3 class="with-pill-nav">My Calls</h3>
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#">Recent</a></li>
+        <li><%= link_to 'View All', current_user.admin? ? calls_path : user_calls_path(:current) %></li>
+      </ul>
+      <% current_user.calls.limit(3).each do |call| %>
+        <div class="recent-call">
+          <a class="call-date" href="#<%# url_for(call) %>">
+            <div class="month"><%= call.created_at.strftime("%b")%></div>
+            <div class="day"><%= call.created_at.strftime("%e")%></div>
+          </a>
+          <div class="call-content">
+            <div class="call-row">
+              <span class="call-name">Call #<%= call.id %> <small><%= call.timecode %></small></span>
+            </div>
+            <div class="call-row">
+            </div>
+            <div class="call-row call-timestamp">
+              <%= call.created_at.strftime("%l:%M %p %Z") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+<script>
+  function makeActiveTab(link) {
+    link.parents('ul').find('li').removeClass('active');
+    link.parents('li').addClass('active');
+  };
+
+  $(function() {
+    $('textarea').not('.no-auto-resize').autoResize({extraSpace:0, animate:false});
+    $("abbr.timeago").timeago();
+    $('.operator').twipsy({html: true});
+
+    $('textarea.comment').live( 'keypress', function(e){
+      if (e.keyCode == 13) { // enter key was pressed
+        if (e.shiftKey) { // shift key is down
+          // don't submit
+        } else {
+          // submit
+          e.preventDefault();
+          $(this).parents('form').submit();
+        }
+      }
+    });
+  });
+</script>

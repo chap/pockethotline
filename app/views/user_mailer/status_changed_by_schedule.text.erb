@@ -1,0 +1,11 @@
+You're now <%= @status %> call for the <%= Rails.configuration.x.hotline.name %>.
+
+You can toggle your status here: <%= dashboard_url(:host => Rails.configuration.x.hotline.domain) %>
+
+<% if @status == :on && @end_time %>
+(We'll take you off call at <%= @end_time.in_time_zone(Rails.configuration.time_zone).strftime("%l:%M %P %Z") %>)
+<% end %>
+
+---
+Stop receiving email notifications of your schedule by clicking here:
+<%= unsubscribe_url(@user.token, :host => Rails.configuration.x.hotline.domain, :only => 'schedule') %>

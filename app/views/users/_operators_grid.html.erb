@@ -1,0 +1,9 @@
+<ul class="thumbnails" id="oncall-operators">
+  <%= render :partial => 'users/user', :collection => @operators_oncall %>
+  <% if @operators_oncall.empty? %>
+    <li id="noone-oncall"><p class="small"  style="margin-left:30px;">No operators on call</p></li>
+  <% end %>
+</ul>
+<ul class="thumbnails" id="all-operators" style="display:none;">
+  <%= render :partial => 'users/user', :collection => @operators %>
+</ul>

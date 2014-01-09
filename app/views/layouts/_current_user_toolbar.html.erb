@@ -1,0 +1,17 @@
+<ul class="nav pull-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <%= current_user.name %>
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to_function "<span id='toggle_link'>#{current_user.on_call? ? 'End' : 'Start'}</span> Call Duty".html_safe, "toggle_status('#{toggle_status_user_path(current_user)}')" %></li>
+      <li class="divider"></li>
+      <%= active_link_to 'My Info', edit_user_path(current_user), controller?('users') && action?('edit') && params[:id] =='current' %>
+      <%= active_link_to 'My Schedule', user_oncall_schedules_path(:current), controller?('oncall_schedules') && action?('index') && params[:id] =='current' %>
+      <li class="divider"></li>
+      <li><%= link_to 'Sign out', logout_path, method: :delete %></li>
+    </ul>
+  </li>
+</ul>
+</ul>

@@ -1,0 +1,8 @@
+<% if OncallSchedule.any? %>
+	<h3>Go ahead, give us a call!</h3>
+	<p>Operators are generally available</p>
+	<div style="margin-bottom:10px">
+		<%= friendly_schedules(OncallSchedule.active_users, true) %>
+	</div>
+	<p><i><%= Rails.configuration.time_zone %></i></p>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="sponsor">
+  <h6>
+  	<% if controller?('sponsors') %>
+  		<%= friendly_minutes_remaining(sponsor.minutes_purchased) %> Hour<%= 's' if sponsor.minutes_purchased > 119 %>
+  	<% else %>
+  	The Next <%= friendly_minutes_remaining(sponsor.minutes_remaining) %> Hour<%= 's' if sponsor.minutes_remaining > 119 %>
+  	<% end %><br />
+  	supported by
+  </h6>
+  <p>
+    <%= link_to_if sponsor.url.present?, sponsor_image(sponsor) + content_tag(:span, truncate(sponsor.message, :length => 115)), add_http(sponsor.url), :target => '_blank' %>
+  </p>
+</div>

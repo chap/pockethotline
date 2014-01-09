@@ -1,0 +1,51 @@
+<div id="hero" class="chipboard">
+  <%= image_tag 'hero.jpg', :width => 520 %>
+  <div id="subhead-and-schedule">
+    <h1><%= Rails.configuration.x.hotline.name %></h1>
+    <div id="subhead">
+      <p>This is a FREE helpline run by volunteers and supported by the community.</p>
+      <p>Are you stuck or need help getting
+      <% if Rails.configuration.x.hotline.organizer %>
+        <p>Organized by <%= Rails.configuration.x.hotline.organizer %></p>
+      <% end %>
+    </div>
+
+    <%= render 'schedule' %>
+
+    <% if Rails.configuration.x.twitter.screen_name %>
+      <div style="padding:10px;"><p><a href="https://twitter.com/<%= Rails.configuration.x.twitter.screen_name %>" class="twitter-follow-button" data-show-count="false">Follow @<%= Rails.configuration.x.twitter.screen_name %></a><script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script></p></div>
+    <% end %>
+  </div>
+  <div id="faq">
+    <h4>Why would I want to call?</h4>
+    <p>
+      You'll receive personalized attention from an actual, honest-to-goodness, caring human being. No call centers or automated systems, and the person on the other end of the phone actually cares about you and your question. 
+    </p>
+
+    <h4>Is it really free?</h4>
+    <p>
+      Yup! There's no fee for calling.
+    </p>
+    <% if sponsors_active? %>
+      <p>
+        But if you get a great answer, consider sharing your appreciation by <%= link_to 'buying more minutes for us', support_path %>. You can see the full list of supporters <%= link_to 'here', sponsors_path %>.
+      </p>
+    <% end %>
+
+    <h4>Who will answer when I call?</h4>
+    <p>
+      Nothing less than an amazing volunteer expert. All of our operators have volunteered their time to take calls from you, because they love what they do and find personal satisfaction in helping other people. You can checkout out the <%= link_to 'full line up of operators', volunteers_path %>.
+    </p>
+
+    <h4>When can I call?</h4>
+    <p>Call whenever you need help. Bookmark this page and visit to see when someone's on call.</p>
+
+    <h4>Who made this?</h4>
+    <p>
+      <% if Rails.configuration.x.hotline.organizer %>
+        <%= Rails.configuration.x.hotline.organizer %> created this hotline to help you.
+      <% end %>
+      It's powered by <%= link_to 'Pocket Hotline', 'http://www.pockethotline.com' %>, a system that provides personalized hotlines for communities.
+    </p>
+  </div>
+</div>

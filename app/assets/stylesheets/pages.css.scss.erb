@@ -1,0 +1,254 @@
+@import "bootstrap/mixins";
+
+.chipboard {
+	background: #95664E;
+	background-image: url(<%= asset_data_uri('chipboard.jpg') %>);
+}
+
+body#pages_show {
+	position:relative; // for signin button
+}
+
+#hero {
+	padding: 10px;
+	overflow: hidden;
+	@include border-radius;
+	img {
+		margin-bottom: 20px;
+	}
+	#subhead-and-schedule {
+		color: #39261b;
+		color: rgba(0,0,0,0.7);
+		h1, h3 {
+			color: #39261b;
+			color: rgba(0,0,0,0.7);
+			text-shadow: (0px 1px 2px rgba(255,255,255,0.3))
+		}
+		float: left;
+		width: 55%;
+		#subhead{
+			margin-bottom: 10px;
+			padding-bottom: 5px;
+			border-bottom: 1px solid #39261b;	
+			border-bottom: 1px solid rgba(0,0,0,0.7);	
+		}
+	}
+	#faq {
+		float: right;
+		width: 38%;
+		background: #fff;
+		@include box-shadow(0 0 5px rgba(0,0,0,.25));
+		padding: 10px;
+		h4 {
+			color: #C1272D;
+		}
+	}
+}
+
+@mixin tiny-sidebar-text() {
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 13px;
+	text-transform: uppercase;
+	display: block;
+	color: #333;
+	text-align: center;
+}
+
+#sidebar {
+	h1, h2, h3, h4, h5 {
+		color: #C1272D;
+	}
+	@include border-radius;
+	padding: 10px;
+	margin: 0 10px;
+	padding-bottom: 30px;
+	clear: both;
+	border-bottom-left-radius: 100px 20px;
+	border-bottom-right-radius: 100px 20px;
+	h1, h2, h1 a {
+		color: #39261b;
+		color: rgba(0,0,0,0.7);
+		text-align: center;
+		text-shadow: (0px 1px 2px rgba(255,255,255,0.3));
+	}
+	h2 {
+		font-size: 15px;
+		line-height: 18px;
+	}
+	h1 {
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+	#stats-and-sponsor-wrapper {
+		padding: 0;
+		height: 160px;
+		margin-bottom: 30px;
+		position: relative;
+	}
+	#stats-and-sponsor {
+		overflow: hidden;
+		position: absolute;
+		left: -30px;
+		right: -30px;
+		padding: 10px;
+		background: #fff;
+		border: 1px solid #b38951;
+		@include box-shadow(0 0 5px rgba(0,0,0,.25));
+		border-top-left-radius: 20px 100px;
+		border-bottom-left-radius: 20px 100px;
+		border-top-right-radius: 20px 100px;
+		border-bottom-right-radius: 20px 100px;
+		h3#volunteers-on-call, h3#time-remaining {
+			width: 35%;
+			float: left;
+			text-align: center;
+			font-size: 40px;
+			line-height: 38px;
+			span {
+				@include tiny-sidebar-text;
+			}
+		}
+		h3#volunteers-on-call {
+			padding-bottom: 5px;
+			margin-bottom: 5px;
+			border-bottom: 1px solid #333;
+		}
+		h3#time-remaining {
+			clear: left;
+		}
+		#sponsor {
+			width: 60%;
+			float: right;
+			text-align: center;
+			clear: right;
+			h6 {
+				@include tiny-sidebar-text;
+				color: #666;
+				margin-bottom: 5px;
+			}
+			img {
+				margin-bottom: 5px;
+			}
+			span {
+				display: block;
+			}
+			p, p a {
+				@include tiny-sidebar-text;
+				font-size: 9px;
+				line-height: 11px;
+				text-transform: none;
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	#time-remaining-box, #well-be-back {
+		@include box-shadow(0 0 5px rgba(0,0,0,.25));
+		background: #fff;
+		position: static;
+		padding: 10px;
+		text-align: center;
+		margin-bottom: 40px;
+		#thermometer, #doorhanger {
+			float: left;
+			margin-right: 5px;
+			margin-bottom: -10px;
+			width: 35px;
+			height: 76px;
+			position: relative;
+			#mask {
+				width: 35px;
+				height: 76px;
+				background: url(<%= asset_data_uri('thermometer.png') %>);
+				position: absolute;
+				top: 0;
+			}
+			#bar {
+				width: 35px;
+				height: 50%;
+				@include gradientBar(lighten(#C1272D, 20%), #C1272D);
+				position: absolute;
+				bottom: 0;
+			}
+		}
+		#hey-thanks, #sorry {
+			width: 75%;
+			float: right;
+			p {
+				font-size: 11px;
+				line-height: 12px;
+				min-height: 50px;
+				margin: 0;
+				margin-bottom: 20px;
+			}
+		}
+	}
+	#well-be-back {
+		h4 {
+			line-height: 13px;
+		}
+		#doorhanger {
+			width: 54px;
+			height: 110px;
+			background: url(<%= asset_data_uri('doorhanger.png') %>);
+		}
+		#sorry {
+			width: 63%;
+		}
+	}
+	#operators-on-call {
+		@include box-shadow(0 0 5px rgba(0,0,0,.25));
+		background: #fff;
+		padding: 10px;
+		h4 {
+			margin-bottom: 5px;
+		}
+		ul {
+			list-style: none;
+			margin: 0;
+			
+			li {
+				clear: both;
+				margin-bottom: 10px;
+				overflow: hidden;
+				img {
+					float: left;
+					margin-right: 5px;
+				}
+				p {
+					@include tiny-sidebar-text;
+					text-align: left;
+					text-transform: none;
+				}
+			}
+		}
+	}
+	.btn-wrapper {
+		clear: both;
+		margin-bottom: -28px;
+		@include border-radius(5px);
+		padding: 5px;
+		width: 85%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		a.btn {
+			text-decoration: none;
+			font-weight: bold;
+			width: 85%;
+			@include border-radius(5px);
+			@include gradientBar(#424244, #1a1818);
+			color: #fff;
+		}	
+	}
+}
+a#signin {
+  float:right;
+  text-decoration:none;
+  position:absolute;
+  top:10px;
+  right:10px;
+}

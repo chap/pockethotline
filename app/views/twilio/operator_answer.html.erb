@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Gather action="<%= twilio_operator_response_path(:call_id => @call.id, :user_id => @user.id) %>" method="POST" numDigits="1" timeout="20">
+    <Say voice="woman">
+      Someone is calling the hotline, press one to be connected. You can also press zero to be taken off call now.
+    </Say>
+    <Pause length="5"/>
+    <Say voice="woman">
+      Someone is calling the hotline, press one to be connected. You can also press zero to be taken off call now.
+    </Say>
+  </Gather>
+  <Say voice="woman">We didn't receive any input. Goodbye.</Say>
+</Response>

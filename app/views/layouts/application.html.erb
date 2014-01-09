@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title %></title>
+  <%= csrf_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Description" content="<%= @page.subhead.gsub("\n", " ") if @page %>">
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'application' %>
+</head>
+<body id="<%= controller.controller_name.parameterize %>_<%= controller.action_name.parameterize %>">
+<div class="container">
+  <%= render 'layouts/header' %>
+
+  <% flash.each do |type, msg| %>
+    <div class="alert <%= {'notice' => 'alert-success', 'alert' => 'alert-error'}[type] %>">
+      <a class="close" data-dismiss="alert" href="#">×</a>
+      <%= msg %>
+    </div>
+  <% end %>
+
+  <%= yield %>
+
+  <footer>
+    <p class="small">
+    <%= link_to 'Powered by Pocket Hotline', 'http://www.pockethotline.com' %>
+    </p>
+  </footer>
+</div>
+
+</body>
+</html>

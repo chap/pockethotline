@@ -1,0 +1,89 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="clearfix">
+    <%= f.label :name %>
+    <div class="input">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :email %>
+    <div class="input">
+      <%= f.text_field :email %>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :phone %>
+    <div class="input">
+      <%= f.text_field :phone %>
+      <span class="help-block">xxx-xxx-xxxx</span>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :twitter, 'Twitter Username' %>
+    <div class="input">
+      <div class="input-prepend">
+        <span class="add-on">@</span>
+        <%= f.text_field :twitter %>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :bio, 'Short Bio' %>
+    <div class="input">
+      <%= f.text_area :bio, :rows => 3 %>
+      <span class="help-block">please limit to 140 characters</span>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <div class="input">
+      <ul class="inputs-list">
+        <li>
+          <label>
+            <%= f.check_box :on_call %>
+            <span>On call now</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <% if admin? %>
+    <div class="clearfix">
+      <div class="input">
+        <ul class="inputs-list">
+          <li>
+            <label>
+              <%= f.check_box :admin %>
+              <span>Admin</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit :class => 'btn primary' %>
+  </div>
+
+  <% if admin? && !@user.new_record? && current_user != @user %>
+    <%= link_to 'delete user', user_path(@user), :method => :delete, :confirm => "Are you sure?" %>
+  <% end %>
+<% end %>

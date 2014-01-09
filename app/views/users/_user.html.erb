@@ -1,0 +1,1 @@
+<li><%= link_to image_tag(user.gravatar('40').gsub('http:',''), :width => 30, :height => 30), "#", 'data-oncall' => "#{user.on_call?}", :title => "<strong>#{user.name}</strong>#{'<br />@' + user.twitter if user.twitter.present?}".html_safe, :class => 'operator thumbnail', :id => "operator-#{user.id}" %></li>

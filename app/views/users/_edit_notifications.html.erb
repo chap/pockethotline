@@ -1,0 +1,21 @@
+<div class="control-group">
+  <div class="controls">
+    <label class="checkbox">
+      <%= f.check_box :newsletter_emails %>
+      <span>Email me hotline updates and news.</span>
+    </label>
+
+    <label class="checkbox">
+      <%= f.check_box :schedule_emails %>
+      <span>Email me when <%= link_to 'my schedule', user_oncall_schedules_path(@user) %> puts me on or off call.</span>
+    </label>
+
+    <% if @user.admin? %>
+      <label class="checkbox">
+        <%= f.check_box :volunteers_first_availability_emails %>
+        <span>Email me when a volunteer goes on-call for the first time.</span>
+      </label>
+    <% end %>
+
+  </div>
+</div>

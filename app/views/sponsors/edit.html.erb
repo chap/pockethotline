@@ -1,0 +1,72 @@
+<div class="row">
+  <% if params[:thanks] == 'true' %>
+    <div class="row">
+    <div class="alert-message success">
+      <p>
+        <strong>Thanks!</strong> Your card was successfully charged. It'll show up when the current supporter's minutes run out.
+      </p>
+    </div>
+    </div>
+  <% end %>
+
+  <h1>Customize your message</h1>
+</div>
+
+<div class="row" style="margin-bottom:50px">
+  <div class="span6">
+    <%= form_for(@sponsor) do |f| %>
+      <% if @sponsor.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@sponsor.errors.count, "error") %> prohibited this sponsor from being saved:</h2>
+
+          <ul>
+          <% @sponsor.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= hidden_field_tag :auth_token, params[:auth_token] %>
+      
+      <% if sponsors_images? %>
+        <div class="clearfix" style="float:left; margin-right:10px; ">
+          <p><%= image_tag(@sponsor.image.url(:actual).gsub('http:',''), :style => 'border: 1px solid #ddd;') %></p>
+          <%= f.file_field :image %>
+          <span class="help-block">cropped to 110x60</span>
+        </div>
+      <% end %>
+
+
+      <div>
+        <%= f.text_area :message, :style => "height:80px; padding: 10px;", 'data-character-limit' => 100 %>
+        <span class="help-block display-limit">100 character limit</span>
+      </div>
+      
+      <div class="clearfix" style="clear:both;">
+        <%= f.label :url, "Link address &nbsp; ".html_safe %>
+        <div class="input-prepend">
+          <span class="add-on">http://</span>
+          <%= f.text_field :url %>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit 'Save Changes', :class => 'btn primary' %>
+      </div>
+    <% end %>
+  </div>
+  <div class="span5 offset1">
+    <div id="instructions">
+      <h5>Do I have to do this?</h5>
+      <p>No. If you don't change anything we'll just display the anonymous default you see. </p>
+
+      <h5>When does this appear on the site?</h5>
+      <p>Your message is now in the queue and will appear when the others run out of minutes. It will stay at the top of the hotline for however long your minutes are being used and always be accessible in the <%= link_to 'supporter archives', sponsors_path %>.</p>
+
+      <h5>What should I put here?</h5>
+      <p>You could promote your services, a company site, or maybe dedicate it in honor of someone else.</p>
+      <p>(The hotline organizers have the right to remove any message they consider inappropriate.)</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<h3 class="with-pill-nav">
+  Edit <%= @user == current_user ? 'My Info' : @user.name %>
+</h3>
+<ul class="nav nav-pills">
+  <li class="active"><%= link_to_function 'Basic', "makeActiveTab($(this)); $('.section').hide(); $('#edit_basic').show();", 'data-tab-id' => 'edit_basic' %></li>
+  <li><%= link_to_function 'Notifications', "makeActiveTab($(this)); $('.section').hide(); $('#edit_notifications').show();", 'data-tab-id' => 'edit_notifications' %></li>
+  <li><%= link_to 'Schedule', user_oncall_schedules_path(@user.id) %></li>
+</ul>
+
+<% if current_user.admin? && @user.pending_approval? %>
+  <div style="padding:10px; background: #eee; border: 1px solid #999; margin-bottom: 20px;">
+    <%= @user.name %> is awaiting your approval: &nbsp;
+      <%= link_to 'Approve', approve_user_path(@user), :method => :post, :confirm => "This will send the welcome email to the operator.", :class => 'btn btn-success' %> &nbsp; 
+      <%= link_to 'Reject', user_path(@user), :method => :delete, :confirm => "Are you sure you want to reject this applicant?", :class => 'btn btn-important' %>
+  </div>
+<% end %>
+
+<div class="grid_8">
+  <%= form_for(@user, :html => {:class => "form-horizontal"}) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div id="edit_basic" class="section" style="display:none;">
+      <%= render :partial => 'edit_basic', :locals => {:f => f} %>
+    </div>
+
+    <div id="edit_notifications" class="section" style="display:none;">
+      <%= render :partial => 'edit_notifications', :locals => {:f => f} %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit 'Save Changes', :class => 'btn btn-inverse' %>
+      <% if admin? && !@user.new_record? && current_user != @user %>
+        <%= link_to 'delete user', user_path(@user), :method => :delete, :confirm => "Are you sure?" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function makeActiveTab(link) {
+    link.parents('ul').find('li').removeClass('active');
+    link.parents('li').addClass('active');
+  };
+
+  $(document).ready(function() {
+    activeTab = '<%= params[:specifically] %>';
+    if (activeTab == '') {
+      $('#edit_basic').show();
+    } else {
+      $('#' + activeTab).show();
+      makeActiveTab($('a[data-tab-id="' + activeTab + '"]'));
+    }
+  });
+</script>

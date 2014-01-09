@@ -1,0 +1,56 @@
+<%= form_for(@review) do |f| %>
+  <% if @review.errors.any? %>
+    <h3 style="color:red; margin-bottom:20px;">
+      Oops, do you  mind at least telling us the question?
+    </h3>
+  <% end %>
+
+  <%= hidden_field_tag :call_token, params[:call_token] %>
+
+  <div class="control-group">
+    <%= f.label :question, 'What question did you call about? (required)' %>
+    <div class="controls">
+      <%= f.text_area :question, :rows => 2 %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :answer, 'What answer or help did you receive?' %>
+    <div class="controls">
+      <%= f.text_area :answer, :rows => 5 %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :twitter, 'Your Twitter Name' %>
+    <div class="controls">
+      <div class="input-prepend">
+        <span class="add-on">@</span>
+        <%= f.text_field :twitter %>
+      </div>
+    </div>
+  </div>
+
+   <div class="control-group">
+    <%= f.label :happiness, "Overall, how did the call go?" %>
+    <div class="controls">
+      <% %w(smile flatline frown).each do |face| %>
+        <%= link_to_function image_tag("#{face}.png", :width => 68, :height => 68), "$('.happiness').css('opacity', '0.5'); $(this).css('opacity', '1'); $('#review_happiness').val($(this).attr('data-value'));", :style => 'opacity:0.5;', 'data-value' => face, :class => 'happiness' %>
+      <% end %>
+      <%= f.hidden_field :happiness %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <%= f.check_box :public %>
+        Share my review
+      </label>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Publish Review', :class => 'btn btn-inverse' %>
+  </div>
+<% end %>

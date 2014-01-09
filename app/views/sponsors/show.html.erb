@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="span5">
+    <%= render :partial => 'sponsors/sponsor', :locals => {:sponsor => @sponsor} %>
+  </div>
+</div>
+
+<% if @sponsor.auth_token == params[:auth_token] %>
+	<p><%= link_to 'Edit', edit_sponsor_path(@sponsor, :auth_token => params[:auth_token]), :class => 'btn' %></p>
+<% end %>

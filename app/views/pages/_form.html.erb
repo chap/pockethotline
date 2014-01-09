@@ -1,0 +1,37 @@
+<%= form_for(@page) do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :subhead, "Edit text", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :subhead, :class => 'email' %>
+    </div>
+  </div>
+
+<div class="control-group">
+  <%= f.label :image, 'Hotline Picture', :class => 'control-label' %>
+  <div class="controls">
+    <% if @page.image? %>
+      <%= image_tag(@page.image.url(:thumb)) %>
+      <br / ><%= link_to 'change picture', remove_image_page_path(@page), :method => :put %>
+    <% else %>
+      <%= f.file_field :image%>
+      <span class="help-block">Should be 520px wide and 285px tall.</span>
+    <% end %>
+  </div>
+</div>
+
+  <div class="form-actions">
+    <%= f.submit 'Update Site', :class => 'btn btn-inverse' %>
+  </div>
+<% end %>

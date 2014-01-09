@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Developers</title>
+  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="topbar">
+        <div class="fill">
+          <div class="container">
+            <a class="brand" href="#">Pocket Hotline API</a>
+          </div>
+        </div>
+      </div>
+  <div class="container">
+  <p>
+    The Pocket Hotline API is implemented as JSON over HTTP using GET requests.
+    Every resource, like User or Call, has
+    their own URL and are manipulated in isolation. In other words, we've tried
+    to make the API follow the <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>
+    principles as much as we can.
+  </p>
+
+  <h2>Authentication</h2>
+  <p>
+    Authentication is managed using HTTP authentication.
+    Every request must include the Authorization HTTP header. Use your API token as the username,
+    and "X" (or some otherwise bogus text) as the password (only the API token is used for
+    authenticating API requests). Example with Curl:
+  </p>
+  <pre style="margin-bottom: 15px;"><code>curl -H 'Accept: application/json' -H 'Content-Type: application/json' \
+  -u myapitoken:X https://#{account.subdomain}/calls.json</pre></code>
+  <p>
+    Your API token can be found by logging into your Pocket Hotline account, clicking on the "My Info" link
+    in the upper-right, and then clicking the "API Tokens" at the bottom.
+  </p>
+
+  <h2>Making requests</h2>
+  <p>
+    Be sure to set both the 'Content-Type' and 'Accept' headers to 'application/json' to
+    identify the request and response format. Example with Curl:
+  </p>
+
+  <pre style="margin-bottom: 15px;"><code>curl -H 'Accept: application/json' -H 'Content-Type: application/json' \
+  -u myapitoken:x \
+  https://#{account.subdomain}/calls/123.json</pre></code>
+
+  <h2>Responses</h2>
+  <p>
+    <strong>If a request succeeds, it will return a status code in the 200 range</strong> and
+    often, an JSON-formatted response.
+  </p>
+
+  <p>
+    <strong>If a request fails, a non-200 status code will be returned</strong>, possibly with
+    error information in JSON format as the response's content. For instance, if a requested
+    record could not be found, the HTTP response might look something like:
+  </p>
+
+  <pre style="margin-bottom: 15px;"><code>HTTP/1.1 404 The record could not be found
+  Date: Thu, 16 Mar 2012 17:41:40 GMT
+  ...</code></pre>
+
+  <!-- <h2>Rate limiting</h2>
+  <p>
+    You can perform up to 500 requests per 10 second period from the same IP address for the
+    same account. If you exceed this limit, you'll get a 503 response for subsequent requests.
+    Check the Retry-After header to see how many seconds to wait before trying again.
+  </p> -->
+
+  <h2>SSL</h2>
+  <p>
+    All requests must be over SSL using urls beginning with https.
+  </p>
+
+  <h1>Users API</h1>
+
+  <h3>GET https://#{account.subdomain}.pockethotline.com/users.json</h3>
+
+  <p>Returns all accessible users. This includes active, pending, and deleted users.</p>
+
+  <h4>Response</h4>
+  <pre>
+<code>    [
+      {
+        "user":  {
+          "name":   "Adam Smith",
+          "email":  "user1@email.com",
+          "id":      1,
+          "on_call": false,
+          "phone":   "111-111-11111"
+        }
+      },
+      {
+        "user":  {
+          "name":   "Halli Smith",
+          "email":  "user1@email.com",
+          "id":      2,
+          "on_call": false,
+          "phone":   "222-222-2222"
+        }
+      }
+    ]</code></pre>
+
+  <h1>Calls API</h1>
+
+  <h3>GET https://#{account.subdomain}.pockethotline.com/calls.json</h3>
+
+  <p>Returns all accessible calls. This includes answered, unanswered, and active calls.</p>
+
+  <h4>Response</h4>
+  <pre>
+<code>    [
+      {
+        "call":  {
+          "answered_at": "2011-10-21T19:03:42-04:00",
+          "ended_at":    "2011-10-21T19:04:07-04:00",
+          "id":          1,
+          "length":      100,
+          "operator_id": 1,
+          "started_at":  "2011-10-21T19:03:18-04:00"
+        }
+      },
+      {
+        "call":  {
+          "answered_at": "2011-10-21T19:03:42-04:00",
+          "ended_at":    null,
+          "id":          2,
+          "length":      null,
+          "operator_id": 2,
+          "started_at":  "2011-10-21T19:03:18-04:00"
+        }
+      },
+      {
+        "call":  {
+          "answered_at": null,
+          "ended_at":    "2011-10-21T19:04:07-04:00",
+          "id":          2,
+          "length":      20,
+          "operator_id": null,
+          "started_at":  "2011-10-21T19:03:18-04:00"
+        }
+      }
+    ]</code></pre>
+
+<!-- <iframe src="http://apigee.com/chap1/embed/console/pockethotline" width="100%" height="600"></iframe> -->
+</div>
+</body>
+</html>

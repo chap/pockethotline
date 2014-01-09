@@ -1,0 +1,3 @@
+$('#activity_<%= @activity.id %> textarea.comment').val('');
+$('#activity_<%= @activity.id %> .comments').append("<%= escape_javascript(render(@comment)) %>");
+$("abbr.timeago").timeago();

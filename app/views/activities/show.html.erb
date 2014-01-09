@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="span9">
+    <%= render :partial => 'activity', :locals => {:activity => @activity} %>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $('textarea').autoResize({extraSpace:0, animate:false});
+    $("abbr.timeago").timeago();
+    //$('.operator').twipsy({html: true});
+  });
+</script>

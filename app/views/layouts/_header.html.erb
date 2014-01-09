@@ -1,0 +1,67 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to truncate(Rails.configuration.x.hotline.name, :length => 20), root_path, :class => 'brand' %>
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <% if logged_in? %>
+        <div>
+          <div class="btn-group pull-right on-call-toggle" data-toggle="buttons-radio">
+            <button class="btn <%= 'active' if current_user.on_call? %>" data-status="on">ON CALL</button>
+            <button class="btn <%= 'active' unless current_user.on_call? %>" data-status="off">OFF CALL</button>
+          </div>
+          <script type="text/javascript">
+            $(document).ready(function() {
+              $('.on-call-toggle .btn').click(function() {
+                jQuery.post('<%= toggle_status_user_path(current_user) %>');
+              })
+            })
+          </script>
+        </div>
+      <% end %>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <% unless logged_in? %>
+            <%= active_link_to 'Join', join_path %>
+            <% if Rails.configuration.x.sponsors.on %>
+              <%= active_link_to 'Support', support_path, controller?('sponsors') %>
+            <% end %>
+          <% end %>
+          <% if logged_in? %>
+            <%= active_link_to (current_user.admin? ? 'Dashboard' : 'My Dashboard'), dashboard_path, controller?('accounts') && action?('show') %>
+          <% end %>
+          <% if admin? %>
+            <%= active_link_to 'Operators', users_path, controller?('users') && request.path != settings_path %>
+          <% end %>
+          <% if logged_in? %>
+            <% if admin? %>
+              <%= active_link_to 'Calls', calls_path, controller?('calls') %>
+            <% else %>
+              <%= active_link_to 'My Calls', user_calls_path(:current), controller?('calls') %>
+            <% end %>
+            <%= active_link_to 'Share', widget_path, controller?('share') %>
+          <% end %>
+          <% if admin? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <%= active_link_to 'Schedules', all_user_oncall_schedules_path(:current) %>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+        <%= render 'layouts/current_user_toolbar' if logged_in? %>
+      </div>
+      <% unless logged_in? %>
+        <div class="nav-collapse collapse">
+          <ul class="nav pull-right">
+            <li><%= active_link_to 'Sign in', login_path %></li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

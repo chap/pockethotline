@@ -1,0 +1,61 @@
+<h1>Join as an operator for the <%= Rails.configuration.x.hotline.name %></h1>
+
+<%= form_for(@user, :html => {:class => 'form-horizontal'}) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>Oops, check the errors below:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name, "Your Name", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name %>
+      <span class="help-block">First and last</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :email, "Your Email", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email %>
+      <span class="help-block">We'll never share your contact info with anyone.</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :phone, "10 digit US number", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :phone %>
+      <span class="help-block">xxx-xxx-xxxx</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :twitter, "Twitter Username", :class => 'control-label' %>
+    <div class="controls">
+      <div class="input-prepend">
+        <span class="add-on">@</span>
+        <%= f.text_field :twitter %>
+      </div>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :bio, "What makes you a good #{Rails.configuration.x.hotline.name} operator?", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :bio, :rows => 3 %>
+      <span class="help-block">Keep it to 140 characters.</span>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Submit', :class => 'btn btn-inverse' %>
+  </div>
+<% end %>

@@ -1,0 +1,54 @@
+<div class="control-group">
+  <%= f.label :name, :class => 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :email, :class => 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :email %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :phone, :class => 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :phone %>
+    <p class="help-block">xxx-xxx-xxxx 10 digit US number</p>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :twitter, 'Twitter Username', :class => 'control-label' %>
+  <div class="controls">
+    <div class="input-prepend">
+      <span class="add-on">@</span>
+      <%= f.text_field :twitter %>
+    </div>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :bio, 'Short Bio', :class => 'control-label' %>
+  <div class="controls">
+    <%= f.text_area :bio, :rows => 3 %>
+    <span class="help-block">please limit to 140 characters</span>
+  </div>
+</div>
+
+<div class="control-group">
+  <div class="controls">
+    <label class="checkbox">
+      <%= f.check_box :on_call %>
+      <span>On call now</span>
+    </label>
+    <% if admin? %>
+      <label class="checkbox">
+        <%= f.check_box :admin %>
+        <span>Admin</span>
+      </label>
+    <% end %>
+  </div>
+</div>

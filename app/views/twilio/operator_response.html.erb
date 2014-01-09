@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <% if @already_answered %>
+    <Say voice="woman">
+      Sorry, another operator has taken the call. The first person to respond is connected. Please try again on the next call.
+    </Say>
+  <% elsif @connect %>
+    <% if @call.finished? %>
+      <Say voice="woman">Sorry, the caller has hung up.</Say>
+    <% else %>
+       <Dial>
+         <Conference endConferenceOnExit="true">
+           <%= @call.id %>
+         </Conference>
+       </Dial>
+     <% end %>
+  <% elsif @offcall %>
+    <Say voice="woman">You're now off call.</Say>
+  <% end %>
+</Response>

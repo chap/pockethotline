@@ -1,0 +1,212 @@
+<h1>Support the <%= Rails.configuration.x.hotline.name %>.</h1>
+
+<div class="row">
+  <div class="span7">
+    <p>
+      When you support the hotline, you’re helping this community connect and grow. As a special thank you to our awesome supporters, we’ll feature your name, an image and short description when your minutes are being used. We’ll send you details how to customize these details after processing your payment.
+    </p>
+    <%= form_for(@sponsor, :html => {:class => 'form-horizontal'}) do |f| %>
+      <% if @sponsor.errors.any? %>
+        <div id="error_explanation">
+          <h5>Oops, check out the <%= pluralize(@sponsor.errors.count, "error") %> below:</h5>
+
+          <ul>
+          <% @sponsor.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="control-group">
+        <label class="control-label">Amount</label>
+
+        <div class="controls">
+          <label class="radio">
+            <input id="amount_btn_1000" name="amount_btn" type="radio" value="10.00" <%= 'checked="checked"' if @sponsor.amount == 10.00%>>
+            <span><b>$10</b> one hour (about 5 calls)</span>
+          </label>
+
+          <label class="radio">
+            <input id="amount_btn_2000" name="amount_btn" type="radio" value="20.00" <%= 'checked="checked"' if @sponsor.amount == 20.00%>>
+            <span><b>$20</b> two hours (about 10 calls)</span>
+          </label>
+
+          <label class="radio">
+            <input id="amount_btn_5000" name="amount_btn" type="radio" value="50.00" <%= 'checked="checked"' if @sponsor.amount == 50.00%>>
+            <span><b>$50</b> five hours (about 25 calls)</span>
+          </label>
+
+          <label class="radio">
+            <input id="sponsor_amount_btn_other" name="amount_btn" type="radio" value="other" <%= 'checked="checked"' unless [10.00, 20.00, 50.00].include?(@sponsor.amount)%>>
+            <span>
+              <b>Other amount</b>
+            </span>
+          </label>
+          <div class="input-prepend" id="other-amount" <%= "style='display:none;'" if [10.00, 20.00, 50.00].include?(@sponsor.amount)%>>
+            <span class="add-on">$</span>
+            <%= f.text_field :amount, :class => 'span1' %>
+            <span class="help-block">$5 minimum</span>
+          </div>
+            
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>Billing Information</legend>
+        <div class="control-group">
+          <%= f.label :name, :class => "control-label" %>
+          <div class="controls">
+            <%= f.text_field :name %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :email, "Email address", :class => "control-label" %>
+          <div class="controls">
+            <%= f.text_field :email, :class => 'required email' %>
+          </div>
+        </div>
+
+      	<div class="control-group">
+      	  <div class="controls">      	        
+            <label class="checkbox">
+  	          <%= f.check_box :newsletter_emails %>
+  	          <span>Email me hotline updates and news.</span>
+  	        </label>
+
+  	        <label class="checkbox">
+  	          <%= f.check_box :need_help_emails %>
+  	          <span>Email me when the hotline gets low on minutes.</span>
+  	        </label>
+
+      	  </div>
+      	</div>
+      </fieldset>
+
+      <fieldset>
+        <div class="control-group">
+          <div class="controls">
+            <%= image_tag('cards.png', :width => '176', :height => '25') %><br />
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <h4 class="payment-errors" style="color:red; line-height:18px;"></h4>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Card number</label>
+          <div class="controls">
+            <input type="text" size="20" autocomplete="off" class="card-number"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">CVC</label>
+          <div class="controls">
+            <input type="text" size="4" autocomplete="off" class="card-cvc span1"/>
+            <span class="help-block">Security code on back (front of AMEX)</span>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Expiration</label>
+          <div class="controls">
+            <%= select_tag 'month', options_for_select((1..12).map{|m| "%02d" % m}), :class => "card-expiry-month span1", :id => '', :name => '' %>
+            <span> / </span>
+            <%= select_tag 'year', options_for_select(Date.today.year..Date.today.year+10), :class => "card-expiry-year span1", :id => '', :name => '' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <p>
+              We use <%= link_to 'stripe', 'http://stripe.com', :target => '_blank' %> to securely process credit cards.<br />
+              Your details never touch our server.
+            </p>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <%= f.submit 'Charge My Card', :class => 'btn btn-inverse submit-button' %>
+      </div>
+    <% end %>
+
+    <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+    <script type="text/javascript">
+      Stripe.setPublishableKey('<%= Rails.configuration.x.stripe.publishable_key %>');
+
+      function stripeResponseHandler(status, response) {
+        if (response.error) {
+            //show the errors on the form
+            $(".payment-errors").html(response.error.message);
+            $('.submit-button').removeAttr("disabled");
+        } else {
+            var form$ = $("#new_sponsor");
+            // token contains id, last4, and card type
+            var token = response['id'];
+            // insert the token into the form so it gets submitted to the server
+            form$.append("<input type='hidden' name='sponsor[stripe_token]' value='" + token + "'/>");
+            // and submit
+            form$.get(0).submit();
+        }
+    }
+      $(document).ready(function() {
+        $("input:radio[name=amount_btn]").click(function() {
+          var value = $(this).val();
+          if (value === 'other') {
+            $('#other-amount').show();
+          } else {
+            $('#sponsor_amount').val(value);
+            $('#other-amount').hide();
+          }
+        });
+        $("#new_sponsor").validate();
+        $("#new_sponsor").submit(function(event) {
+          // disable the submit button to prevent repeated clicks
+          $('.submit-button').attr("disabled", "disabled");
+          $(".payment-errors").html();
+          
+          var amount = $('#sponsor_amount').val();
+          amount = parseFloat(amount).toFixed(2) * 100;
+          Stripe.createToken({
+              number: $('.card-number').val(),
+              cvc: $('.card-cvc').val(),
+              exp_month: $('.card-expiry-month').val(),
+              exp_year: $('.card-expiry-year').val()
+          }, amount, stripeResponseHandler);
+
+          // prevent the form from submitting with the default action
+          return false;
+        });
+      });
+    </script>
+  </div>
+  <div class="span4 offset1">
+    <div id="thanks">
+      <h5>We love our supporters.</h5>
+      <h4>Thanks from the <%= Rails.configuration.x.hotline.name %>!</h4>    
+    </div>
+    <div id="instructions">
+      <h5>Where do I enter my supporter message?</h5>
+      <p>Once your payment is successful, you'll have the option to customize your public support message.</p>
+      <p>Your message can be up to 100 characters long. Your image should be 110px wide and 60px tall.</p>
+
+      <h5>Is this purchase tax deductable?</h5>
+      <p>No. Your payment goes directly to the hotline organizer which is <i>not</i> a 501(c)3 charity.</p>
+
+      <h5>What does my money pay for?</h5>
+      <p>Your purchase amount will go towards the administrative costs of running the hotline.</p>
+      <p>This includes hosting, support, development and fees associated with the number and calls.</p>
+    </div>
+
+    <% unless Rails.env.production? %>
+      <div style="padding:10px;margin-top:30px;background:#f66;">
+        <ul style="margin:0;list-style:none;padding:0;">
+          <li><strong>We're not in production, you can use these numbers to test</strong></li>
+          <li>success: - <code>4242424242424242</code></li>
+          <li>card_declined: - <code>4000000000000002</code></li>
+          <li>invalid_number: - <code>4242424242424241</code></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

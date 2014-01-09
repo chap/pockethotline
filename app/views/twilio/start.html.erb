@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <% if @users_available_to_take_calls.any? %>
+
+    <% if Rails.configuration.x.messages.welcome_audio_file %>
+      <Play><%= URI.escape(Rails.configuration.x.messages.welcome_audio_file) %></Play>
+    <% else %>
+      <Say voice="woman">
+        <%= Rails.configuration.x.messages.welcome_text %>
+      </Say>
+    <% end %>
+
+    <Dial action="<%= no_answer_or_completed_url %>" record="true">
+      <Conference endConferenceOnExit="true">
+        <%= @call.id %>
+      </Conference>
+    </Dial>
+
+  <% else %>
+
+    <% if Rails.configuration.x.messages.unavailable_audio_file %>
+      <Play><%= URI.escape(Rails.configuration.x.messages.unavailable_audio_file) %></Play>
+    <% else %>
+      <Say voice="woman">
+        <%= Rails.configuration.x.messages.unavailable_text %>
+      </Say>
+      <% if Rails.configuration.x.hotline.no_answer_forwarding_number.present? %>
+        <% @call.update_attributes(:forwarded_to => Rails.configuration.x.hotline.no_answer_forwarding_number)%>
+        <Dial><%= Rails.configuration.x.hotline.no_answer_forwarding_number %></Dial>
+      <% end %>
+    <% end %>
+
+  <% end %>
+</Response>

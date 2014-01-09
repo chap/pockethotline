@@ -1,0 +1,8 @@
+<%= @comment.user.name %> has commented on the activity '<%= truncate(@activity.body).html_safe %>':
+
+<%= @comment.body.html_safe %>
+
+<%= @link %>
+
+--------------------------------------------------------------------------------------------------
+This message sent from <%= Rails.configuration.x.hotline.name %>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<Response>
+  <% if Rails.configuration.x.messages.unavailable_audio_file %>
+    <Play><%= URI.escape(Rails.configuration.x.messages.unavailable_audio_file) %></Play>
+  <% else %>
+    <Say voice="woman">
+      <%= Rails.configuration.x.messages.unavailable_text %>
+    </Say>
+    <% if @call && Rails.configuration.x.hotline.no_answer_forwarding_number.present? %>
+      <% @call.update_attributes(:forwarded_to => Rails.configuration.x.hotline.no_answer_forwarding_number)%>
+      <Dial><%= Rails.configuration.x.hotline.no_answer_forwarding_number %></Dial>
+    <% end %>
+  <% end %>
+</Response>

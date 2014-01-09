@@ -1,0 +1,175 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.activity-item, .recent-call, .comment-item {
+  clear: both; 
+//  border-bottom: 1px solid #EBEBEB;
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+.activity-comments {
+  line-height: 13px;
+}
+
+.comment-item {
+  border: none;
+  background: #ececec;
+  padding: 0;
+  padding: 2px 4px;
+  margin: 0;
+  border-bottom: 1px solid #fff;
+}
+
+.system-activity {
+  background: #ececec;
+  padding: 5px 0;
+  border-bottom: 1px solid #fff;
+  @include border-radius(4px);
+
+  .activity-content {
+    margin-left: 10px;
+    font-size: 11px;
+    color: #666;
+  }
+}
+
+.activity-image, .comment-image {
+  margin-top: 5px;
+  img {
+    float: left;
+    padding: 4px;
+    margin: 0;
+    margin-right: 10px;
+    display: block;
+    &:hover {
+      //    border-color: @linkColor;
+      // .box-shadow(0 1px 4px rgba(0,105,214,.25));
+    }
+  }
+}
+
+.activity-content, .call-content, .comment-content {
+  margin-left: 58px;
+}
+
+.comment-content {
+  line-height: 15px;
+  margin-left: 48px;
+}
+
+.activity-name, .call-name, .comment-name {
+  color: #333;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+  small {
+    color: #999;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: normal;
+  }
+}
+
+.comment-name {
+  font-size: 12px;
+  line-height: 12px;
+  small {
+    color: #999;
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: normal;
+  }
+}
+
+.activity-row, .call-row, .comment-row {
+  display: block;
+}
+
+.activity-timestamp, .call-timestamp, .comment-timestamp {
+  color: #999;
+  font-size: 11px;
+}
+
+.activity-timestamp, .comment-timestamp {
+  margin-top: -10px;
+}
+
+.activity-timestamp {
+    margin-bottom: 4px;
+}
+
+.widget {
+  margin-bottom: 20px;
+}
+
+a .label:hover {
+  text-decoration: none !important;
+  border: none;
+}
+
+.schedule-day, .call-date {
+  width: 30px;
+  background: #ececec;
+  text-align: center;
+  float: left;
+  padding: 4px;
+  margin: 0 0 20px 20px;
+  border: 1px solid #ddd;
+  display: block;
+  @include border-radius(4px);
+  @include box-shadow(0 1px 1px rgba(0,0,0,.075));
+  text-transform: uppercase; 
+  color: #666;
+  &.scheduled {
+    @include gradientBar(#62c462, #57a957);
+    color: #fff;
+    &:hover {
+      @include gradientBar(#62c462, #57a957);
+      background-color: $green;
+      border-color: darken($green, 9%);
+      color: #fff;
+    }
+  }
+  &:hover {
+    color: #333;
+    border: 1px solid #999;
+    background: #fff;
+    text-decoration: none;
+  }
+  .month {
+    font-size: 11px;
+    line-height: 11px;
+  }
+  .day {
+    font-weight: bold;
+    font-size: 15px;
+  }
+}
+
+.call-date {
+  margin: 0;
+  margin-top: 3px;
+  margin-bottom: 20px; 
+  margin-right: 20px;
+}
+
+textarea {
+  color: #222;
+  &.activity-update {
+    width: 99%;
+    height: 1em;
+    margin-bottom: 10px;
+  }
+  &.comment {
+    width: 90%;
+    height: 1em;
+    margin-top: 5px;
+    margin-bottom: 4px;
+  }
+}
+
+a.add-comment {
+  float: right;
+  color: #333;
+}

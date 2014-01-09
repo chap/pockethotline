@@ -1,0 +1,4 @@
+$('#activity_body').val('');
+$("#activities").prepend("<%= escape_javascript(render(@activity)) %>");
+$('textarea').autoResize({extraSpace:0, animate:false});
+$("abbr.timeago").timeago();

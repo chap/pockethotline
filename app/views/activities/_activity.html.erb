@@ -1,0 +1,39 @@
+<% if !activity.admin_only? || current_user.admin? %>
+  <div class="activity-item" id="activity_<%= activity.id %>">
+    <div class="activity-image">
+      <%= image_tag(activity.user.gravatar('40').gsub('http:',''), :width => 40, :height => 40, :class => 'thumbnail') %>
+    </div>
+    <div class="activity-content">
+      <div class="activity-row">
+        <span class="activity-name"><%= activity.user.name %> <small><%= '@' + activity.user.twitter if activity.user.twitter.present? %></small></span>
+      </div>
+      <div class="activity-row">
+        <div class="activity-text">
+          <%= simple_format auto_link(activity.body) %>
+        </div>
+      </div>
+      <div class="activity-row activity-timestamp">
+        <%= link_to_function '+ Comment', "$(this).parents('.activity-item').find('.activity-comments').show(); $(this).hide();", :class => 'add-comment' unless activity.comments.any? %>
+        <%= link_to timestamp(activity.created_at), activity %>
+      </div>
+
+      <div class="activity-comments" style="<%= 'display:none;' unless activity.comments.any? %>">
+        <div class="comments">
+          <%= render activity.comments %>
+        </div>
+
+        <div class="comment-item">
+          <div class="comment-image">
+            <%= image_tag(current_user.gravatar('40').gsub('http:',''), :width => 30, :height => 30) %>
+          </div>
+          <div class="comment-content">
+            <%= form_for([activity, Comment.new], :remote => true) do |f| %>
+              <%= f.text_area :body, :class => 'comment', :placeholder => "Write a comment..." %>
+              <%= f.submit 'Comment', :class => 'btn', :disable_with => '...' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

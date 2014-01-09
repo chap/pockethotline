@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="span7 offset1 hidden-phone">
+    <%= render 'pages/show_hero' %>
+  </div>
+  <div class="span3">
+    <div id="sidebar" class="chipboard">
+      <h2><%= Rails.configuration.x.hotline.name %></h2>
+      <h1><%= pretty_hotline_number(Rails.configuration.x.hotline.number) %></h1>
+
+      <div id="stats-and-sponsor-wrapper"><div id="stats-and-sponsor">
+        <% if sponsors_active? %>
+          <div id="sponsor">
+            <%= render :partial => 'sponsors/sponsor', :locals => {:sponsor => Sponsor.current} if Sponsor.current %>
+          </div>
+        <% end %>
+        <div id="stats-summary">
+          <h3 id="volunteers-on-call">
+            <%= @operators.length %>
+            <span>Volunteer<%= 's' unless @operators.length == 1 %><br /> on call now</span>
+          </h3>
+          <% if sponsors_active? %>
+            <h3 id="time-remaining">
+              <% if minutes_remaining > 120 %>
+                <%= friendly_minutes_remaining(minutes_remaining) %>
+                <span>Hours remaining</span>
+              <% else %>
+                <%= minutes_remaining %>
+                <span>Minutes remaining</span>
+              <% end %>
+            </h3>
+          <% end %>
+        </div>
+      </div></div>
+
+      <% if sponsors_active? %>
+        <div id="time-remaining-box">
+          <div id="thermometer">
+            <div id="bar" style="height:<%= percentage_of_minutes_remaining %>%"></div>
+            <div id="mask"></div>
+          </div>
+          <div id="hey-thanks">
+            <h4>Hey, Thanks!</h4>
+            <p>
+              This hotline is possible because of generous support from people like you dropping change in our <%= link_to 'tip jar', support_path %>.
+            </p>
+          </div>
+          <div class="btn-wrapper chipboard">
+            <%= link_to 'Contribute', support_path, :class => 'btn' %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @operators.any? %>
+        <div id="operators-on-call">
+          <h4>Operators on-call now</h4>
+          <ul>
+            <% @operators.each do |operator| %>
+              <li>
+                <%= link_to_if operator.twitter.present?, image_tag(operator.gravatar('40').gsub('http:',''), :class => "ad_image", :width => 40, :height => 40), "http://twitter.com/#{operator.twitter}" %>
+                <h5><%= link_to_if operator.twitter.present?, operator.name, "http://twitter.com/#{operator.twitter}" %></h5>
+                <p class="operator-bio"><%= auto_link operator.bio %></p>
+              </li>
+            <% end %>
+          </ul>
+          <div class="btn-wrapper chipboard">
+            <%= link_to 'Start Volunteering', volunteer_path, :class => 'btn btn-success large' %>
+          </div>
+        </div>
+      <% end %>
+      <% if @operators.empty? %>
+        <div id="well-be-back">
+          <div id="doorhanger"></div>
+          <div id="sorry">
+            <h4>Sorry we<br />missed you.</h4>
+            <p>
+              Our awesome volunteers have stepped out for a moment, but <%= link_to 'check out their schedules', volunteers_path %> to see when they’ll be back.
+            </p>
+          </div>
+          <div class="btn-wrapper chipboard">
+            <%= link_to 'Start Volunteering', volunteer_path, :class => 'btn btn-success large' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span7 offset1 visible-phone">
+    <%= render 'pages/show_hero' %>
+  </div>
+</div>

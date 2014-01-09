@@ -1,0 +1,22 @@
+<h1>Log in</h1>
+
+<%= form_for(:session, :url => sessions_url, :html => {'data-ajax' => false}) do |f| %>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :password, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <p><%= f.submit "Log in", :class => 'btn btn-inverse' %></p>
+    <p><%= link_to 'Forgot your password?', forgot_password_path %></p>
+  </div>
+<% end %>

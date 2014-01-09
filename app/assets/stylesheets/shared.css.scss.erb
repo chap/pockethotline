@@ -1,0 +1,54 @@
+body {
+  font-family: "proxima-nova", Helvetica, helvetica, sans-serif;
+}
+
+footer a, footer a:hover {color: #999; font-size: 11px;}
+
+.navbar a.brand {
+  font-weight: bold;
+  color: #eee;
+}
+
+.with-pill-nav {
+  float: left;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+
+ul.nav-pills {
+  margin-bottom: 10px;
+  a {
+    text-transform: uppercase;
+    color: #666;
+
+    &:hover {
+      background: #ececec;
+      color: #333;
+      text-decoration: none;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    }
+  }
+  .active a {
+    background: #999;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  }
+}
+
+textarea.email, textarea.big {
+  width: 371px;
+  height: 200px;
+}
+
+textarea.small {
+  width: 371px;
+  height: 100px;
+}
+
+.field_with_errors input, input.error {
+  border: 1px solid red;
+}
+
+.display-limit.over {
+  color: red;
+}

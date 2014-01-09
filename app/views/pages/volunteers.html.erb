@@ -1,0 +1,22 @@
+<h1>Volunteers</h1>
+
+<table>
+  <% @operators.each do |operator| %>
+    <tr>
+      <td class="operator" style="width:50%">
+        <%= link_to_if operator.twitter.present?, image_tag(operator.gravatar('40').gsub('http:',''), :class => "ad_image", :width => 40, :height => 40), "http://twitter.com/#{operator.twitter}" %>
+        <h5><%= link_to_if operator.twitter.present?, operator.name, "http://twitter.com/#{operator.twitter}" %></h5>
+        <p class="operator-bio"><%= auto_link operator.bio %></p>
+      </td>
+      <td>
+        <% if operator.oncall_schedules.any? %>
+          <p>
+            <%= operator.name %> is usually available:<br />
+            <%= friendly_schedules(operator.oncall_schedules) %><br />
+            <i>times are <%= Time.zone %></i>
+          </p>
+        <% end %>
+      </td>
+    </li>
+  <% end %>
+</table>

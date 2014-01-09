@@ -1,0 +1,10 @@
+<%= pluralize(@calls.length, 'Call') %> Yesterday
+    <%= pluralize(@calls.answered.length, 'answered') %>
+    <%= pluralize(@calls.unanswered.length, 'missed') %>
+
+
+<% @calls_by_account.each do |account,calls| %>
+<%= account.name %>: <%= calls.select {|c| c.answered?}.length %> / <%= calls.length %>
+<%= calls_url(:date => Date.yesterday.to_s, :host => "#{account.subdomain}.pockethotline.com") %>
+
+<% end %>

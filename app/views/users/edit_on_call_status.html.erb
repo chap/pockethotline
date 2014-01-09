@@ -1,0 +1,23 @@
+<h2>Edit User</h2>
+
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field" data-role="fieldcontain">
+    <%= f.check_box :on_call %> <%= f.label :on_call, 'On-call now?' %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit 'Submit' %>
+  </div>
+<% end %>

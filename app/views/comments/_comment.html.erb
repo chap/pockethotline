@@ -1,0 +1,18 @@
+<div class="comment-item" id="comment_<%= comment.id %>">
+  <div class="comment-image">
+    <%= image_tag(comment.user.gravatar.url('40').gsub('http:',''), :width => 30, :height => 30) %>
+  </div>
+  <div class="comment-content">
+    <div class="comment-row">
+      <span class="comment-name"><%= comment.user.name %> <small><%= '@' + comment.user.twitter if comment.user.twitter.present? %></small></span>
+    </div>
+    <div class="comment-row">
+      <div class="comment-text">
+        <%= simple_format auto_link(comment.body) %>
+      </div>
+    </div>
+    <div class="comment-row comment-timestamp">
+      <%= timestamp(comment.created_at) %>
+    </div>
+  </div>
+</div>

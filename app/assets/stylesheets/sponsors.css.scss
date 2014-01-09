@@ -1,0 +1,64 @@
+div#other-amount {
+	margin-left: 20px;
+	margin-top: 4px;
+}
+
+label.error {
+  float: right;
+  color: red;
+}
+
+#thanks {
+	overflow: hidden;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #666;
+	 h5, h4 {
+	  line-height: 20px;
+	  margin: 0;
+	}
+}
+
+#instructions {
+	clear: both;
+}
+
+@mixin tiny-sidebar-text() {
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 13px;
+	text-transform: uppercase;
+	display: block;
+	color: #333;
+	text-align: center;
+}
+
+.sponsors .sponsor {
+	width: 150px;
+	float: left;
+	margin-right: 50px;
+	height: 155px;
+	margin-bottom: 50px;
+	text-align: center;
+	h6 {
+		@include tiny-sidebar-text;
+		color: #666;
+		margin-bottom: 5px;
+	}
+	img {
+		margin-bottom: 5px;
+	}
+	span {
+		display: block;
+	}
+	p, p a {
+		@include tiny-sidebar-text;
+		font-size: 9px;
+		line-height: 11px;
+		text-transform: none;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+}

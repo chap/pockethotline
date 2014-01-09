@@ -1,0 +1,41 @@
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+  body#pages_show {
+
+    #hero {
+      bottom: 0;
+      padding: 0;
+      background: none;
+      #subhead-and-schedule {
+        width: auto;
+        padding: 10px;
+        border-bottom: 1px solid rgba(0,0,0,0.7); 
+        margin-bottom: 10px;
+      }
+      #faq {
+        width: auto;
+        padding: 10px;
+        box-shadow: none;
+      }
+    }
+
+    #sidebar {
+      h1 {
+        font-size: 30px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      #well-be-back #sorry p {
+        min-height: 80px;
+      }
+    }
+
+    a#signin, footer {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}

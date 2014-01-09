@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <%= Rails.configuration.x.hotline.name %>: Review Your Call
+  </title>
+  <%= csrf_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'application' %>
+  <style type="text/css">
+    body {
+      padding-top: 0;
+    }
+  </style>
+</head>
+<body id="<%= controller.controller_name.parameterize %>_<%= controller.action_name.parameterize %>">
+<div class="container">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <%= link_to Rails.configuration.x.hotline.name, root_path, :class => 'brand' %>
+      </div>
+    </div>
+  </div>
+
+  <%= yield %>
+
+  <footer>
+    <div class="row">
+    <div class="span7 offset1">
+      <p class="small">
+      <small>
+      <%= link_to 'Create a Volunteer Powered Hotline', 'http://www.pockethotline.com' %> &nbsp;
+      </small>
+      </p>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

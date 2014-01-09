@@ -1,0 +1,12 @@
+You might try calling the hotline now and giving them a little encouragement.
+<% if @end_time %>
+
+(According to their schedule, they'll be on call until <%= @end_time.in_time_zone(Rails.configuration.time_zone).strftime("%l:%M%P %Z") %>)
+<% end %>
+
+<%= number_to_phone(Rails.configuration.time_zone.x.hotline.number, :area_code => true) %>
+<%= root_url(:host => Rails.configuration.x.hotline.domain) %>
+
+---
+Stop receiving email notifications of volunteers' first availability here:
+<%= unsubscribe_url(@admin.token, :host => Rails.configuration.x.hotline.domain, :only => 'volunteers_first_availability_emails') %>

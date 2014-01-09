@@ -1,0 +1,50 @@
+<h1 class="with-pill-nav">Calls <%= "answered by #{@user.name}" if @user && @user != current_user %></h1>
+<% if @user && admin? %>
+  <ul class="nav nav-pills">
+    <li><%= link_to 'All', calls_path %></li>
+  </ul>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <% unless @user %>
+        <th>
+          Answered by
+        </th>
+        <th>
+          Caller's Number
+        </th>
+      <% end %>
+      <th>
+        Call Time
+      </th>
+      <th>
+        Duration
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @calls.each do |call| %>
+      <tr>
+        <% unless @user %>
+          <td>
+            <%= call.answered? ? link_to(call.operator.name, call.operator) : 'call missed' %>
+          </td>
+          <td>
+            <%= call.caller.city.titleize + ',' if call.caller.city.present? %> <%= call.caller.state %>
+            <%= number_to_phone(call.caller.phone.gsub('+1', '')) if call.caller && call.caller.phone %>
+          </td>
+        <% end %>
+        <td>
+          <%= call.started_at.strftime("%D %l:%M %p %Z") %>
+        </td>
+        <td>
+          <%= link_to_if call.twilio_recording_url.present? && current_user.admin?, call.timecode, call.twilio_recording_url %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @calls %>

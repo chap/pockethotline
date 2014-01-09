@@ -1,0 +1,54 @@
+<% if @users.pending.any? %>
+  <h3><%= pluralize(@users.pending.length, 'Pending Operator')%></h3>
+  <table class="dashboard">
+    <tbody>
+      <% @users.pending.each do |operator| %>
+        <tr>
+          <td>
+            <%= link_to operator.name, edit_user_path(operator) %><br />
+            <small>applied <%= time_ago_in_words(operator.created_at) %> ago</small>
+          </td>
+          <td>
+            <%= operator.bio %>
+          </td>
+          <td>
+            <%= link_to 'Approve', approve_user_path(operator), :method => :post, :confirm => "This will send the welcome email to the operator.", :class => 'btn btn-success' %> &nbsp; 
+            <%= link_to 'Reject', user_path(operator), :method => :delete, :confirm => "Are you sure you want to reject this applicant?", :class => 'btn btn-important' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<p>
+  <%= link_to 'Invite operators', '#invite_modal', :class => 'btn btn-success', "data-toggle" => 'modal' %>
+</p>
+
+<%= render 'users/invite_modal' %>
+
+<div class="grid_6">
+  <table class="table">
+    <tbody>
+      <% @users.each do |operator| %>
+        <tr>
+          <td class="operator" style="width:50%">
+            <%= link_to image_tag(operator.gravatar('40').gsub('http:',''), :class => "ad_image", :width => 40, :height => 40), edit_user_path(operator) %>
+            <h4><%= link_to operator.name, edit_user_path(operator) %></h4>
+            <% if operator.on_call? %>
+              <span class="label label-success">on call</span>
+            <% end %>
+            <p class="operator-bio"><%= auto_link operator.bio %></p>
+          </td>
+          <td>
+          Schedule:<br />
+            <%= friendly_schedules(operator.oncall_schedules) %>
+            <p><%= link_to 'edit', user_oncall_schedules_path(operator) %></p>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @users %>

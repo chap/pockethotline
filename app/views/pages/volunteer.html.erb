@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="span6">
+    <div class="faq">
+      <h2 class="short">How it works</h4>
+      <iframe width="520" height="390" src="http://www.youtube.com/embed/XmllSOZw-3k?showinfo=0&theme=light&rel=0&modestbranding=1&hd=1&controls=0&showsearch=0" frameborder="0" allowfullscreen></iframe>
+      <p>
+        When someone calls the hotline, <%= number_to_phone(Rails.configuration.x.hotline.number, :area_code => true) %>, we ring the phones of all volunteers who are on-call at that moment. 
+        The first to pickup the phone is connected to the caller.
+      </p>
+    </div>
+
+  </div>
+  <div class="span5 offset1">
+    <h2 class="short">What is this?</h2>
+    <p>
+      <%= Rails.configuration.x.hotline.name %> is a toll-free number answered by volunteer operators and supported by the community.
+    </p>
+
+    <p><%= link_to 'Vounteer to Answer Calls', join_path, :class => 'btn large red' %></p>
+
+    <p style="margin-bottom:30px;">See the <%= link_to pluralize(User.active.have_logged_in.length, 'volunteer'), volunteers_path %> who answer calls on the hotline.</p>
+
+    <div class="faq">
+      <h4 class="short">I'm scared of talking to strangers</h4>
+      <p>You’re first call can be intimidating, but you’ll quickly find out that people are really friendly when they’re getting free advice!</p>
+      <p>Hotline organizers can also block bad numbers if you get a dud.</p>
+    </div>
+
+    <div class="faq">
+      <h4 class="short">Will everybody see my phone number?</h4>
+      <p>Nope. We route all the calls through the main hotline number.</p>
+    </div>
+
+    <div class="faq">
+      <h4 class="short">I’m not really an expert</h4>
+      <p>You probably know a lot more than the average person.</p>
+      <p>A lot of calls are from beginners who really just need a push in the right direction.</p>  
+    </div>
+
+    <div class="faq">
+      <h4 class="short">What if I don’t know the answer to a callers question?</h4>
+      <p>Don’t fret, most callers just need someone more experienced to have a discussion with.</p>
+      <p>When faced with a real head scratcher, just think, “What would I do if I had this problem?” then point the caller in the right direction.</p>
+      <p>From our experience, they’ll appreciate the guidance.</p>
+    </div>
+
+    <div class="faq">
+      <h4 class="short">What happens when I get a call?</h4>
+      <p>The call will come from the hotline number, <%= number_to_phone(Rails.configuration.x.hotline.number, :area_code => true) %> and when you answer it you'll have the option to be connected to the caller by pressing 1 on your phone's keypad. If you do so you'll be directly connected to the caller.</p>
+    </div>
+
+    <div class="faq">
+      <h4 class="short">What number do the calls come from?</h4>
+      <p>All calls come from the hotline number, <%= number_to_phone(Rails.configuration.x.hotline.number, :area_code => true) %>. You can download <%= link_to 'this contact card', vcard_path %> and add it to your address book so it’ll show up on your caller id.</p>
+    </div>
+
+    <div class="faq">
+      <h4 class="short">What if I’m busy when somebody calls?</h4>
+      <p>Don’t answer it.</p>
+      <p>Callers understand that we’re all volunteers and will be ok if somebody can’t get to their call.</p>
+      <p>(If you’d like to be taken off-call you can pickup an incoming hotline call and press 9, instead of 1, and we’ll take you off immediately.)</p>
+    </div>
+
+    <div class="faq">
+      <h4 class="short">What if I get a ton of calls?</h4>
+      <p>Your phone will only ring when you choose to be available.</p>
+      <p>Also remember that we're working together as a community to answer calls.</p>
+    </div>
+
+    <div class="faq">
+      <h4 class="short">I’m only available a few hours a week</h4>
+      <p>That’s great!</p>
+      <p>You can setup a weekly schedule and then you’ll be automatically flipped on and off availability. We think you'll get a lot out of helping people, even if it's only 1 hour a week.</p>
+    </div>
+
+    <div class="faq">   
+      <h4 class="short">I don’t have time to answer calls, but I’d still like to help out</h4>
+      <p>Consider buying <%= link_to 'some minutes for the hotline', support_path %>.</p>
+      <p>We’re completely volunteer run and community supported so every little bit helps.</p>
+    </div>
+
+  </div>
+</div>
