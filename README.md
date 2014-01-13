@@ -72,7 +72,7 @@ First run
 Copy the output and use it here:  
 ```$ heroku config:set SESSION_SECRET=XXXXXXXXXXXXXX```
 
-##13. Create yourself an account (edit these values)  
+##14. Create yourself an account (edit these values)  
 ```
   $ heroku run rails console
   $ u = User.new(
@@ -86,22 +86,22 @@ Copy the output and use it here:
     u.save!
 ```
 
-##14. Login to your account
+##15. Login to your account
 ```$ heroku open```
 
-##15. Update Twilio with your app's domain
+##16. Update Twilio with your app's domain
 * Click on 'Numbers' in the nav bar
 * Click on your phone number
 * Change the 'Voice Request URL' to ```https://myhotline-name.herokuapp.com/twilio/start```
 * Set request method to [POST]
 
-##16. Call the hotline and see if it's working!
+##17. Call the hotline and see if it's working!
 * Don't call from the same number that you added for yourself
 * If you're using your free demo Twilio account you'll hear a pre-roll message. That will go away when you upgrade your account.
 * Your call should be connected after the greeting message is used.
 * If calling via Gtalk fails to connect, try a real land or cell line.
 
-##17. Yeah!
+##18. Yeah!
 
 ===
 
