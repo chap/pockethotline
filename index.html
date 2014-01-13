@@ -137,7 +137,17 @@
 <p>Copy the output and use it here:<br><code>$ heroku config:set SESSION_SECRET=XXXXXXXXXXXXXX</code></p>
 
 <h2>
-<a name="14-create-yourself-an-account-edit-these-values" class="anchor" href="#14-create-yourself-an-account-edit-these-values"><span class="octicon octicon-link"></span></a>14. Create yourself an account (edit these values)</h2>
+<a name="14-setup-the-on-call-scheduler" class="anchor" href="#14-setup-the-on-call-scheduler"><span class="octicon octicon-link"></span></a>14. Setup the on-call scheduler</h2>
+
+<ol>
+<li><code>$ heroku addons:add scheduler</code></li>
+<li><code>$ heroku addons:open scheduler</code></li>
+<li>Click "Add Job"</li>
+<li>In the left-most field enter "rake oncall_scheduler"</li>
+<li>Change frequency to "Hourly"</li>
+<li>Set next run to "XX:00" (The XX will depend on the current time.)</li>
+</ol><h2>
+<a name="15-create-yourself-an-account-edit-these-values" class="anchor" href="#15-create-yourself-an-account-edit-these-values"><span class="octicon octicon-link"></span></a>15. Create yourself an account (edit these values)</h2>
 
 <pre><code>  $ heroku run rails console
   $ u = User.new(
@@ -152,12 +162,12 @@
 </code></pre>
 
 <h2>
-<a name="15-login-to-your-account" class="anchor" href="#15-login-to-your-account"><span class="octicon octicon-link"></span></a>15. Login to your account</h2>
+<a name="16-login-to-your-account" class="anchor" href="#16-login-to-your-account"><span class="octicon octicon-link"></span></a>16. Login to your account</h2>
 
 <p><code>$ heroku open</code></p>
 
 <h2>
-<a name="16-update-twilio-with-your-apps-domain" class="anchor" href="#16-update-twilio-with-your-apps-domain"><span class="octicon octicon-link"></span></a>16. Update Twilio with your app's domain</h2>
+<a name="17-update-twilio-with-your-apps-domain" class="anchor" href="#17-update-twilio-with-your-apps-domain"><span class="octicon octicon-link"></span></a>17. Update Twilio with your app's domain</h2>
 
 <ul>
 <li>Click on 'Numbers' in the nav bar</li>
@@ -166,7 +176,7 @@
 </li>
 <li>Set request method to [POST]</li>
 </ul><h2>
-<a name="17-call-the-hotline-and-see-if-its-working" class="anchor" href="#17-call-the-hotline-and-see-if-its-working"><span class="octicon octicon-link"></span></a>17. Call the hotline and see if it's working!</h2>
+<a name="18-call-the-hotline-and-see-if-its-working" class="anchor" href="#18-call-the-hotline-and-see-if-its-working"><span class="octicon octicon-link"></span></a>18. Call the hotline and see if it's working!</h2>
 
 <ul>
 <li>Don't call from the same number that you added for yourself</li>
@@ -174,7 +184,7 @@
 <li>Your call should be connected after the greeting message is used.</li>
 <li>If calling via Gtalk fails to connect, try a real land or cell line.</li>
 </ul><h2>
-<a name="18-yeah" class="anchor" href="#18-yeah"><span class="octicon octicon-link"></span></a>18. Yeah!</h2>
+<a name="19-yeah" class="anchor" href="#19-yeah"><span class="octicon octicon-link"></span></a>19. Yeah!</h2>
 
 <h1></h1>
 
