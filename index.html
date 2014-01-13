@@ -29,14 +29,41 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1>
+<a name="what" class="anchor" href="#what"><span class="octicon octicon-link"></span></a>What</h1>
+
+<p>Pockethotline is a rails app that allows you to setup a "distributed hotline". This allows you to have a hotline number that is published and operators signup with their personal numbers. When someone calls the main number the operators will be called (depending on their on-call status) and connected to the main caller.</p>
+
+<p>It was originally conceived as a business by Scott McGee and Chap Ambrose at the Austin Center for Design in the winter of 2011.</p>
+
+<p>The software was open-sourced January 2014.</p>
+
+<h1>
+<a name="how-much-does-it-cost-to-run-a-hotline" class="anchor" href="#how-much-does-it-cost-to-run-a-hotline"><span class="octicon octicon-link"></span></a>How much does it cost to run a hotline?</h1>
+
+<h4>
+<a name="hosting-costs" class="anchor" href="#hosting-costs"><span class="octicon octicon-link"></span></a>Hosting Costs</h4>
+
+<p>The minimum hosting costs are about $35 a month. This is because a background worker dyno is required. (Assuming you're using <a href="http://heroku.com">Heroku</a> for hosting).</p>
+
+<h4>
+<a name="phone-costs" class="anchor" href="#phone-costs"><span class="octicon octicon-link"></span></a>Phone Costs</h4>
+
+<p><a href="http://twilio.com">Twilio</a> phone numbers cost $1/month for local numbers and $2/month for toll-free.</p>
+
+<p>Twilio charges you by minutes used, $0.03/minute for local and $0.05/minute for toll-free. </p>
+
+<p><em>Twilio's published rates are $0.01 / $0.03 but that is only for the incoming call, you also have to add another $0.02 to each call because of the outgoing connection to the operators.</em></p>
+
+<h1>
 <a name="basic-setup" class="anchor" href="#basic-setup"><span class="octicon octicon-link"></span></a>Basic Setup</h1>
 
 <h2>
 <a name="1-setup-accounts-on" class="anchor" href="#1-setup-accounts-on"><span class="octicon octicon-link"></span></a>1. Setup accounts on:</h2>
 
 <ul>
-<li>Twilio.com</li>
-<li>Heroku.com (or other rails capable host)</li>
+<li><a href="http://twilio.com">Twilio.com</a></li>
+<li>
+<a href="http://heroku.com">Heroku.com</a> (or other rails capable host)</li>
 </ul><h2>
 <a name="2-get-a-phone-number-on-twilio" class="anchor" href="#2-get-a-phone-number-on-twilio"><span class="octicon octicon-link"></span></a>2. Get a phone number on Twilio</h2>
 
@@ -56,16 +83,15 @@
 <a name="5-edit-config-file-at-configinitializershotlinerb" class="anchor" href="#5-edit-config-file-at-configinitializershotlinerb"><span class="octicon octicon-link"></span></a>5. Edit config file at <code>/config/initializers/hotline.rb</code>
 </h2>
 
-<p>You must add values for:  </p>
+<p>You must edit values for:</p>
 
-<pre><code>  config.x.hotline.name
-  config.x.hotline.domain
-  config.x.hotline.organizer
-  config.x.hotline.organizer_email 
-  config.x.hotline.number
-</code></pre>
-
-<h2>
+<ul>
+<li>config.x.hotline.name</li>
+<li>config.x.hotline.domain</li>
+<li>config.x.hotline.organizer</li>
+<li>config.x.hotline.organizer_email </li>
+<li>config.x.hotline.number</li>
+</ul><h2>
 <a name="6-save-changes" class="anchor" href="#6-save-changes"><span class="octicon octicon-link"></span></a>6. Save changes</h2>
 
 <p><code>$ git commit config/initializers/hotline.rb -m "updated config"</code></p>
@@ -98,23 +124,31 @@
 <p><code>$ heroku ps:scale worker=1</code></p>
 
 <h2>
-<a name="12-add-env-variables-to-heroku-config-use-twilio-api-credentials-from-step-3" class="anchor" href="#12-add-env-variables-to-heroku-config-use-twilio-api-credentials-from-step-3"><span class="octicon octicon-link"></span></a>12. Add ENV variables to heroku config (use Twilio API credentials from step 3)</h2>
+<a name="12-add-twilio_auth_token-env-variable-to-heroku-config" class="anchor" href="#12-add-twilio_auth_token-env-variable-to-heroku-config"><span class="octicon octicon-link"></span></a>12. Add TWILIO_AUTH_TOKEN ENV variable to heroku config</h2>
 
-<p><code>$ heroku config:set TWILIO_AUTH_TOKEN=XXXXXXXXXXXXXX</code></p>
+<p>Use Twilio API credentials from step 3.
+<code>$ heroku config:set TWILIO_AUTH_TOKEN=XXXXXXXXXXXXXX</code></p>
+
+<h2>
+<a name="13-add-session_secret-env-variables-to-heroku-config" class="anchor" href="#13-add-session_secret-env-variables-to-heroku-config"><span class="octicon octicon-link"></span></a>13. Add SESSION_SECRET ENV variables to heroku config</h2>
+
+<p>First run<br><code>$ heroku run rake secret</code></p>
+
+<p>Copy the output and use it here:<br><code>$ heroku config:set SESSION_SECRET=XXXXXXXXXXXXXX</code></p>
 
 <h2>
 <a name="13-create-yourself-an-account-edit-these-values" class="anchor" href="#13-create-yourself-an-account-edit-these-values"><span class="octicon octicon-link"></span></a>13. Create yourself an account (edit these values)</h2>
 
-<pre><code>    $ heroku run rails console
-    $ u = User.new(
-      :name =&gt; 'my name', 
-      :email =&gt; 'myemail@email.com', 
-      :phone =&gt; '215-359-5228', 
-      :password =&gt; 'setyourpasswordhere'
-      )
-      u.admin = true
-      u.on_call = true
-      u.save!
+<pre><code>  $ heroku run rails console
+  $ u = User.new(
+    :name =&gt; 'my name', 
+    :email =&gt; 'myemail@email.com', 
+    :phone =&gt; '215-359-5228', 
+    :password =&gt; 'setyourpasswordhere'
+    )
+    u.admin = true
+    u.on_call = true
+    u.save!
 </code></pre>
 
 <h2>
@@ -165,8 +199,8 @@
 <h2>
 <a name="4-save-changes-and-deploy" class="anchor" href="#4-save-changes-and-deploy"><span class="octicon octicon-link"></span></a>4. Save changes and deploy</h2>
 
-<p>$ git commit /config/initializers/hotline.rb -m "add stripe details"
-  $ git push heroku</p>
+<p><code>$ git commit /config/initializers/hotline.rb -m "add stripe details"</code>
+<code>$ git push heroku</code></p>
 
 <h2>
 <a name="5-visit-suporters-page" class="anchor" href="#5-visit-suporters-page"><span class="octicon octicon-link"></span></a>5. Visit suporters page</h2>
