@@ -122,7 +122,8 @@ Uncomment (remove leading '#') and edit values in  ```/config/hotline.rb```
 ```$ git push heroku```
   
 ##5. Visit suporters page
-```https://.../supporters/new```
+
+https://.../supporters/new  
 
 Stripe requires SSL to be enabled, if you're using your default heroku domain you will seemlessly piggy-back on the wildcard certificate at *.herokuapp.com.
 
