@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Pockethotline by chap</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Pockethotline</h1>
+        <p class="header">Community Powered Hotlines</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/chap/pockethotline/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/chap/pockethotline/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/chap/pockethotline">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/chap">chap</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="basic-setup" class="anchor" href="#basic-setup"><span class="octicon octicon-link"></span></a>Basic Setup</h1>
+
+<h2>
+<a name="1-setup-accounts-on" class="anchor" href="#1-setup-accounts-on"><span class="octicon octicon-link"></span></a>1. Setup accounts on:</h2>
+
+<ul>
+<li>Twilio.com</li>
+<li>Heroku.com (or other rails capable host)</li>
+</ul><h2>
+<a name="2-get-a-phone-number-on-twilio" class="anchor" href="#2-get-a-phone-number-on-twilio"><span class="octicon octicon-link"></span></a>2. Get a phone number on Twilio</h2>
+
+<p>Start with the free trial number or purchase another toll-free or local number.</p>
+
+<h2>
+<a name="3-take-note-of-your-phone-number-and-api-credentials-accountsid-and-authtoken" class="anchor" href="#3-take-note-of-your-phone-number-and-api-credentials-accountsid-and-authtoken"><span class="octicon octicon-link"></span></a>3. Take note of your phone number and API credentials AccountSID and AuthToken</h2>
+
+<p>Find them under "Account Settings"</p>
+
+<h2>
+<a name="4-clone-the-repository" class="anchor" href="#4-clone-the-repository"><span class="octicon octicon-link"></span></a>4. Clone the repository</h2>
+
+<p><code>$ git clone git@github.com:chap/pockethotline.git</code></p>
+
+<h2>
+<a name="5-edit-config-file-at-configinitializershotlinerb" class="anchor" href="#5-edit-config-file-at-configinitializershotlinerb"><span class="octicon octicon-link"></span></a>5. Edit config file at <code>/config/initializers/hotline.rb</code>
+</h2>
+
+<p>You must add values for:  </p>
+
+<pre><code>  config.x.hotline.name
+  config.x.hotline.domain
+  config.x.hotline.organizer
+  config.x.hotline.organizer_email 
+  config.x.hotline.number
+</code></pre>
+
+<h2>
+<a name="6-save-changes" class="anchor" href="#6-save-changes"><span class="octicon octicon-link"></span></a>6. Save changes</h2>
+
+<p><code>$ git commit config/initializers/hotline.rb -m "updated config"</code></p>
+
+<h2>
+<a name="7-create-an-app-on-heroku" class="anchor" href="#7-create-an-app-on-heroku"><span class="octicon octicon-link"></span></a>7. Create an app on heroku</h2>
+
+<p><code>$ heroku create myhotline-name</code></p>
+
+<h2>
+<a name="8-enable-sendgrid-add-on-for-sending-email" class="anchor" href="#8-enable-sendgrid-add-on-for-sending-email"><span class="octicon octicon-link"></span></a>8. Enable Sendgrid add-on for sending email</h2>
+
+<p><code>$ heroku addons:add sendgrid</code></p>
+
+<p>Any SMTP provider should work. If you don't use Sendgrid, manually update settings at <code>config/initializers/smtp_settings.rb</code></p>
+
+<h2>
+<a name="9-push-application-to-heroku" class="anchor" href="#9-push-application-to-heroku"><span class="octicon octicon-link"></span></a>9. Push application to heroku</h2>
+
+<p><code>$ git push heroku master</code></p>
+
+<h2>
+<a name="10-create-database-tables" class="anchor" href="#10-create-database-tables"><span class="octicon octicon-link"></span></a>10. Create database tables</h2>
+
+<p><code>$ heroku run rake db:schema:load</code></p>
+
+<h2>
+<a name="11-scale-up-worker-dyno-required-for-background-tasks" class="anchor" href="#11-scale-up-worker-dyno-required-for-background-tasks"><span class="octicon octicon-link"></span></a>11. Scale up worker dyno (required for background tasks)</h2>
+
+<p><code>$ heroku ps:scale worker=1</code></p>
+
+<h2>
+<a name="12-add-env-variables-to-heroku-config-use-twilio-api-credentials-from-step-3" class="anchor" href="#12-add-env-variables-to-heroku-config-use-twilio-api-credentials-from-step-3"><span class="octicon octicon-link"></span></a>12. Add ENV variables to heroku config (use Twilio API credentials from step 3)</h2>
+
+<p><code>$ heroku config:set TWILIO_AUTH_TOKEN=XXXXXXXXXXXXXX</code></p>
+
+<h2>
+<a name="13-create-yourself-an-account-edit-these-values" class="anchor" href="#13-create-yourself-an-account-edit-these-values"><span class="octicon octicon-link"></span></a>13. Create yourself an account (edit these values)</h2>
+
+<pre><code>    $ heroku run rails console
+    $ u = User.new(
+      :name =&gt; 'my name', 
+      :email =&gt; 'myemail@email.com', 
+      :phone =&gt; '215-359-5228', 
+      :password =&gt; 'setyourpasswordhere'
+      )
+      u.admin = true
+      u.on_call = true
+      u.save!
+</code></pre>
+
+<h2>
+<a name="14-login-to-your-account" class="anchor" href="#14-login-to-your-account"><span class="octicon octicon-link"></span></a>14. Login to your account</h2>
+
+<p><code>$ heroku open</code></p>
+
+<h2>
+<a name="15-update-twilio-with-your-apps-domain" class="anchor" href="#15-update-twilio-with-your-apps-domain"><span class="octicon octicon-link"></span></a>15. Update Twilio with your app's domain</h2>
+
+<ul>
+<li>Click on 'Numbers' in the nav bar</li>
+<li>Click on your phone number</li>
+<li>Change the 'Voice Request URL' to <code>https://myhotline-name.herokuapp.com/twilio/start</code>
+</li>
+<li>Set request method to [POST]</li>
+</ul><h2>
+<a name="16-call-the-hotline-and-see-if-its-working" class="anchor" href="#16-call-the-hotline-and-see-if-its-working"><span class="octicon octicon-link"></span></a>16. Call the hotline and see if it's working!</h2>
+
+<ul>
+<li>Don't call from the same number that you added for yourself</li>
+<li>If you're using your free demo Twilio account you'll hear a pre-roll message. That will go away when you upgrade your account.</li>
+<li>Your call should be connected after the greeting message is used.</li>
+<li>If calling via Gtalk fails to connect, try a real land or cell line.</li>
+</ul><h2>
+<a name="17-yeah" class="anchor" href="#17-yeah"><span class="octicon octicon-link"></span></a>17. Yeah!</h2>
+
+<h1></h1>
+
+<h1>
+<a name="advanced-setup-of-hotline-supporters" class="anchor" href="#advanced-setup-of-hotline-supporters"><span class="octicon octicon-link"></span></a>Advanced Setup of Hotline Supporters</h1>
+
+<h2>
+<a name="1-create-an-account-on-stripecom" class="anchor" href="#1-create-an-account-on-stripecom"><span class="octicon octicon-link"></span></a>1. Create an account on Stripe.com</h2>
+
+<h2>
+<a name="2-set-stripe-publishable-key-in-config" class="anchor" href="#2-set-stripe-publishable-key-in-config"><span class="octicon octicon-link"></span></a>2. Set Stripe publishable key in config</h2>
+
+<p>Uncomment (remove leading '#') and edit values in  <code>/config/hotline.rb</code></p>
+
+<ul>
+<li>config.x.stripe.publishable_key</li>
+</ul><h2>
+<a name="3-add-stripe-api-key" class="anchor" href="#3-add-stripe-api-key"><span class="octicon octicon-link"></span></a>3. Add Stripe API key</h2>
+
+<p><code>$ heroku config:set STRIPE_SECRET_KEY=XXXXXXXXXXXXXX</code></p>
+
+<h2>
+<a name="4-save-changes-and-deploy" class="anchor" href="#4-save-changes-and-deploy"><span class="octicon octicon-link"></span></a>4. Save changes and deploy</h2>
+
+<p>$ git commit /config/initializers/hotline.rb -m "add stripe details"
+  $ git push heroku</p>
+
+<h2>
+<a name="5-visit-suporters-page" class="anchor" href="#5-visit-suporters-page"><span class="octicon octicon-link"></span></a>5. Visit suporters page</h2>
+
+<pre lang="https://.../supporters/new```"><code>
+Stripe requires SSL to be enabled, if you're using your default heroku domain you will seemlessly piggy-back on the wildcard certificate at *.herokuapp.com.
+
+If you want to use a different domain you may have to purchase and setup your own certificate. 
+
+===
+
+#Advanced Allow Supporters to Upload Images
+
+##1. Add your S3 bucket name to /config/hotline.rb
+
+##2. Add S3 access_key_id and secret_access_key
+```$ heroku config:set S3_ACCESS_KEY_ID=XXXXXXXXXXXXXX S3_SECRET_ACCESS_KEY=XXXXXXXXXXXXXX```
+
+===
+
+#Forward unanswered calls, change recordings, Twitter integration, etc
+
+Look at all the options in /config/hotline.rb
+</code></pre>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
