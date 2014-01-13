@@ -79,6 +79,7 @@ Copy the output and use it here:
 4. In the left-most field enter "rake oncall_scheduler"
 5. Change frequency to "Hourly"
 6. Set next run to "XX:00" (The XX will depend on the current time.)
+7. Click "Save"
 
 
 ##15. Create yourself an account (edit these values)  
