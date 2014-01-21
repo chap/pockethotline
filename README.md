@@ -1,7 +1,7 @@
 # What
 Pockethotline is a rails app that allows you to setup a "distributed hotline". This allows you to have a hotline number that is published and operators signup with their personal numbers. When someone calls the main number the operators will be called (depending on their on-call status) and connected to the main caller.
 
-It was originally conceived as a business by Scott McGee and Chap Ambrose at the Austin Center for Design in the winter of 2011.
+It was originally conceived as a business by Scott Magee and Chap Ambrose at the Austin Center for Design in the winter of 2011.
 
 The software was open-sourced January 2014.
 
