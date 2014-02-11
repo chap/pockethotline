@@ -120,7 +120,9 @@ Copy the output and use it here:
 ##1. Create an account on Stripe.com
 
 ##2. Set Stripe publishable key in config
-Uncomment (remove leading '#') and edit values in  ```/config/hotline.rb```
+Uncomment (remove leading '#') and edit values in  ```config/hotline.rb```
+* config.x.stripe.secret_key
+* config.x.stripe.publishable_key
 
 * config.x.stripe.publishable_key
 
@@ -128,7 +130,7 @@ Uncomment (remove leading '#') and edit values in  ```/config/hotline.rb```
 ```$ heroku config:set STRIPE_SECRET_KEY=XXXXXXXXXXXXXX```
 
 ##4. Save changes and deploy
-```$ git commit /config/initializers/hotline.rb -m "add stripe details"```
+```$ git commit config/initializers/hotline.rb -m "add stripe details"```
 ```$ git push heroku```
   
 ##5. Visit suporters page
