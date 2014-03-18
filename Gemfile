@@ -10,7 +10,8 @@ gem 'twilio-ruby', "~> 3.5.0"
 gem 'aws-s3', '~> 0.6.2', :require => 'aws/s3'
 gem 'paperclip', '~> 2.4.5'
 gem 'cocaine', '0.3.2' # required for paperclip version
-gem 'delayed_job', '2.1.4'
+gem 'delayed_job', '3.0.5'
+gem 'delayed_job_active_record', '0.4.4'
 gem 'rails_autolink', '~> 1.0.4'
 gem 'will_paginate', '~> 3.0.4'
 gem 'twitter', '~> 4.6.2'

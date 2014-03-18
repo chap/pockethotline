@@ -1,7 +1,6 @@
 Thanks for supporting <%= Rails.configuration.x.hotline.name %>.
 
 Your <%= @sponsor.card_type %> ending in <%= @sponsor.last_numbers %> will be charged <%= number_to_currency(@sponsor.amount) %>.
-The charge will appear as POCKETHOTLINE-CHARGE.COM on your bill.
 
 You can customize your supporter message here:
 <%= edit_sponsor_url(@sponsor, :auth_token => @sponsor.auth_token, :host => Rails.configuration.x.hotline.domain) %>

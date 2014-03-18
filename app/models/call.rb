@@ -65,7 +65,7 @@ class Call < ActiveRecord::Base
 
   def redirect_if_not_answered(url)
     begin
-      account.twilio_subaccount.calls.get(self.twilio_id).redirect_to(url) if self.unanswered?
+      TWILIO.calls.get(self.twilio_id).redirect_to(url) if self.unanswered?
     rescue => e
       logger.info "Call could not redirect_if_not_answered: #{self.inspect} ERROR: #{e}"
     end
@@ -74,7 +74,7 @@ class Call < ActiveRecord::Base
   def notify_operators_of_hangup(url)
     outgoing_calls.each do |outgoing_call|
       begin
-        c = account.twilio_subaccount.calls.get(outgoing_call.twilio_id)
+        c = TWILIO.calls.get(outgoing_call.twilio_id)
         c.redirect_to(url) if c.status == 'in-progress'
       rescue => e
         logger.info "Call could not notify_operators_of_hangup: #{c.inspect} ERROR: #{e}"
