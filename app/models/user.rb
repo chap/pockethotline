@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   belongs_to :account
   has_many :calls, :foreign_key => 'operator_id', :order => 'answered_at desc'
   has_many :status_updates, :dependent => :destroy, :order => 'started_at asc'
-  has_many :points, :dependent => :destroy, :order => 'created_at desc'
   has_many :reviews, :order => 'created_at desc', :foreign_key => 'operator_id'
   has_many :oncall_schedules, :order => 'wday desc'
   has_many :comments, :order => 'created_at desc'
