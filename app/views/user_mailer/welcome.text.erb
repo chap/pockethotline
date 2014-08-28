@@ -6,7 +6,7 @@ Click here to login and create a password and set your on-call status:
 <%= set_password_url(:token => @user.token, :host => Rails.configuration.x.hotline.domain) %>
 
 The hotline is a new way for you to share some of your knowledge and earn credibility within the community.
-Learn about how it works here: <%= volunteer_url(Rails.configuration.x.hotline.domain, :host => Rails.configuration.x.hotline.domain) %>
+Learn about how it works here: <%= volunteer_url(:host => Rails.configuration.x.hotline.domain) %>
 
 Couple things to remember:
 1. There is a contact card attached to this email, add it to your phone's address book. All hotline calls will come from this number.
