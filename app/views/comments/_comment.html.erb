@@ -1,6 +1,6 @@
 <div class="comment-item" id="comment_<%= comment.id %>">
   <div class="comment-image">
-    <%= image_tag(comment.user.gravatar.url('40').gsub('http:',''), :width => 30, :height => 30) %>
+    <%= image_tag(comment.user.gravatar('40').gsub('http:',''), :width => 30, :height => 30) %>
   </div>
   <div class="comment-content">
     <div class="comment-row">
