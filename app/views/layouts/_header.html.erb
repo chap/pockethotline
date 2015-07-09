@@ -25,7 +25,7 @@
       <div class="nav-collapse collapse">
         <ul class="nav">
           <% unless logged_in? %>
-            <%= active_link_to 'Join', join_path %>
+            <%= active_link_to 'Join', 'http://apply.translifeline.org' %>
             <% if Rails.configuration.x.sponsors.on %>
               <%= active_link_to 'Support', support_path, controller?('sponsors') %>
             <% end %>
@@ -44,6 +44,7 @@
             <% end %>
             <%= active_link_to 'Share', widget_path, controller?('share') %>
           <% end %>
+          <%= active_link_to 'Print Material', '/print' %>
           <% if admin? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>

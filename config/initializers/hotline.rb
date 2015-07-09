@@ -2,22 +2,24 @@ module PocketHotline
   class Application < Rails::Application
 
     # === REQUIRED CONFIG ===
-    config.x.hotline.name = 'My Hotline'
-    config.x.hotline.domain = 'motline.herokuapp.com'
-    config.x.hotline.organizer = 'My Name'
+    config.x.hotline.name = 'Trans Lifeline'
+    config.x.hotline.domain = 'hotline.translifeline.org'
+    config.x.hotline.organizer = 'Greta Martela'
     # Operators and supporters will see this email
-    config.x.hotline.organizer_email = 'myemail@gmail.com'
+    config.x.hotline.organizer_email = 'translifeline@gmail.com'
     # Numbers can be purchased from twilio.com
-    config.x.hotline.number = '+10000000000'
+    config.x.hotline.number = '+18775658860'
+    # This is used in the page title. The page title is formatted as "name - number - description" 
+    config.x.hotline.description = 'Transgender Crisis Hotline'
     # sensetive config options need to be set as environment variables
     # learn more https://devcenter.heroku.com/articles/config-vars
-    config.x.twilio.account_sid = 'XXXXXXXXXXXXX'
+    config.x.twilio.account_sid = 'ACb7446753ed66d801559e5af0eaf19bc6'
     config.x.twilio.auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 
     # === OPTIONAL CONFIG ===
     # Forward all unanswered calls to another phone number
-    # config.x.hotline.no_answer_forwarding_number = '+10000000000'
+    # config.x.hotline.no_answer_forwarding_number = '+12092219957'
     # 
     # Text callers after they hang up and ask them for a review.
     # This number must be purchased via Twilio and can't be toll-free
@@ -26,7 +28,7 @@ module PocketHotline
     # Messages
     # Control what a caller hears when connecting to your hotline
     # If any operators are on call, this will be heard:
-    config.x.messages.welcome_text = 'Thanks for calling, please hold while connect you to an operator.'
+    config.x.messages.welcome_text = 'Thanks for calling, please hold while we connect you to a volunteer. To ensure the quality of our services and for internal training purposes, this call may be recorded.'
     # Instead of the text-to-voice robot above, play an .mp3 or .wave file:
     # config.x.messages.welcome_audio_file = 'http://s3.amazonaws.com/myhotline/welcome.mp3'
     # 
@@ -37,7 +39,7 @@ module PocketHotline
 
     # customize /widget.js text
     config.x.widget.headline = 'Call the Hotline!'
-    config.x.widget.operator_term = 'operator' # could be volunteers, experts, programers, etc...
+    config.x.widget.operator_term = 'volunteers' # could be volunteers, experts, programers, etc...
 
     # Twitter
     # Automatically tweet when someone goes on call:
@@ -64,7 +66,7 @@ module PocketHotline
     # If you'd like to allow callers and the general public to "donate" money to the hotline,
     # you'll need to have an active stripe.com account which will be used to process the cards.
     # config.x.stripe.secret_key = ENV['STRIPE_SECRET_KEY']
-    # config.x.stripe.publishable_key = 'XXXXXXXXXXXXX'
+    # config.x.stripe.publishable_key = 'pk_live_bTTiDyiZ3EyjmeqsF1EYuy0W'
     # 
     # Additionaly, you may allow sponsors to upload an image to accompany their message.
     # This requires an Amazon Web Services S3 account:

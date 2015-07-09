@@ -2,10 +2,19 @@
   <div class="span7 offset1 hidden-phone">
     <%= render 'pages/show_hero' %>
   </div>
-  <div class="span3">
+  <div class="span4">
     <div id="sidebar" class="chipboard">
       <h2><%= Rails.configuration.x.hotline.name %></h2>
-      <h1><%= pretty_hotline_number(Rails.configuration.x.hotline.number) %></h1>
+      <h1> US:
+        <a href="tel:<%= Rails.configuration.x.hotline.number %>">
+          <%= pretty_hotline_number(Rails.configuration.x.hotline.number) %>
+        </a>
+      </h1>
+      <h1> Canada:
+        <a href="tel:+18773306366">
+          <%= pretty_hotline_number('+18773306366') %>
+        </a>
+      </h1>
 
       <div id="stats-and-sponsor-wrapper"><div id="stats-and-sponsor">
         <% if sponsors_active? %>
@@ -49,7 +58,19 @@
           </div>
         </div>
       <% end %>
-
+      
+      <div id="time-remaining-box">
+        <div id="hey-thanks">
+          <h4>Hey, Thanks!</h4>
+          <p>
+            This hotline is possible because of generous support from our community. Please help us continue by contributing financially. 
+          </p>
+        </div>
+        <div class="btn-wrapper chipboard">
+          <%= link_to 'Donate Now', 'https://giveoutday.givebig.org/c/GO/a/translifeline', :class => 'btn' %>
+        </div>
+      </div>
+      
       <% if @operators.any? %>
         <div id="operators-on-call">
           <h4>Operators on-call now</h4>

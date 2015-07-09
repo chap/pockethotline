@@ -29,6 +29,10 @@ PocketHotline::Application.routes.draw do
   get 'widget' => "share#widget"
   get 'share' => "share#widget"
   put 'share/update_widget' => "share#update_widget"
+  
+  get 'print' => "print#print_materials"
+  
+  get '/donate', to: redirect('https://app.moonclerk.com/pay/4q0i3scndql')
 
   resources :sessions
   resources :calls
@@ -48,8 +52,12 @@ PocketHotline::Application.routes.draw do
         get 'all'
       end
     end
-    resources :calls, :only => [:index]
+    resources :calls
     resources :activities, :only => [:index]
+  end
+
+  namespace :admin do
+    resources :users
   end
 
   resources :activities, :only => [:create, :index, :show] do

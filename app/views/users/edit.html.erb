@@ -5,6 +5,10 @@
   <li class="active"><%= link_to_function 'Basic', "makeActiveTab($(this)); $('.section').hide(); $('#edit_basic').show();", 'data-tab-id' => 'edit_basic' %></li>
   <li><%= link_to_function 'Notifications', "makeActiveTab($(this)); $('.section').hide(); $('#edit_notifications').show();", 'data-tab-id' => 'edit_notifications' %></li>
   <li><%= link_to 'Schedule', user_oncall_schedules_path(@user.id) %></li>
+
+  <% if admin? %>
+     <li><%= link_to 'Administration', admin_user_path(@user.id) %></li>
+  <% end %>
 </ul>
 
 <% if current_user.admin? && @user.pending_approval? %>

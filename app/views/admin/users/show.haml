@@ -1,0 +1,18 @@
+.user-data
+  .name
+    = "Name: #{@user.name}"
+  .email
+    = "Email: #{@user.email}"
+  .phone
+    = "Phone: #{@user.phone}"
+  .password-info
+    = "User's password #{@user.password_hash ? 'has' : 'has not'} been set."
+
+= form_tag({:action => :update}, {:method => :put}) do
+  .control-group
+    %label.control-label
+      Set Password 
+    .controls
+      = text_field_tag :password
+
+  = submit_tag "Save"

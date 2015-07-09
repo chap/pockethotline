@@ -1,25 +1,25 @@
 @import "bootstrap/mixins";
 
 .navbar-inner {
-  background-color: #5a070c;
-  background-color: #b70612;
+  background-color: #401C36;
+  background-color: #592756;
   background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#5a070c), to(#b70612));
-  background-image: -moz-linear-gradient(top, #5a070c, #b70612);
-  background-image: -ms-linear-gradient(top, #5a070c, #b70612);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5a070c), color-stop(100%, #b70612));
-  background-image: -webkit-linear-gradient(top, #5a070c, #b70612);
-  background-image: -o-linear-gradient(top, #5a070c, #b70612);
-  background-image: linear-gradient(top, #5a070c, #b70612);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5a070c', endColorstr='#b70612', GradientType=0);
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#401C36), to(#592756));
+  background-image: -moz-linear-gradient(top, #401C36, #592756);
+  background-image: -ms-linear-gradient(top, #401C36, #592756);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #401C36), color-stop(100%, #592756));
+  background-image: -webkit-linear-gradient(top, #401C36, #592756);
+  background-image: -o-linear-gradient(top, #401C36, #592756);
+  background-image: linear-gradient(top, #401C36, #592756);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#401C36', endColorstr='#592756', GradientType=0);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  border-color: #b70612 #b70612 #6d040b;
+  border-color: #592756 #592756 #26111F;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
 }
 
 .navbar {
 	 h3 a:hover, .brand:hover, ul .active > a {
-    background-color: 5a070c;
+    background-color: #401C36;
   }
 }
 
@@ -27,7 +27,7 @@
 .nav-collapse .dropdown-menu a:hover,
 .active > a, .navbar .nav .active > a:hover,
 .navbar .nav .active > a, .navbar .nav .active > a:hover {
-  background: #b70612;
+  background: #592756;
 }
 
 .navbar .btn-navbar, 
@@ -36,7 +36,7 @@
 .navbar .btn-navbar.active, 
 .navbar .btn-navbar.disabled, 
 .navbar .btn-navbar[disabled] {
-  background: #b70612;
+  background: #592756;
 }
 
 abbr[title] {
@@ -44,7 +44,7 @@ abbr[title] {
 }
 
 a {
-  color: #C1272D;
+  color: #592756;
   text-decoration: underline;
 }
 

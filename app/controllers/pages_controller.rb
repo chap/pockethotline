@@ -13,7 +13,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @activites = Activity.includes([:comments => :user]).includes(:user).limit(10)
+    @activites = Activity.includes([:comments => :user]).includes(:user).limit(10).order('created_at desc')
     @operators = User.active
     @operators_oncall = User.active.select {|o| o.on_call?}
   end
