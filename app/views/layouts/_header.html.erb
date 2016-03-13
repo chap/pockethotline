@@ -40,7 +40,9 @@
               <%= active_link_to 'My Calls', user_calls_path(:current), controller?('calls') %>
             <% end %>
           <% end %>
-          <a href="https://www.radremedy.org/" target="_blank">Reources</a>
+          <li>
+            <a href="https://www.radremedy.org/" target="_blank">Reources</a>
+          </li>
           <% if admin? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
