@@ -39,13 +39,27 @@
             <% else %>
               <%= active_link_to 'My Calls', user_calls_path(:current), controller?('calls') %>
             <% end %>
-            <li>
-              <a href="https://docs.google.com/document/d/1rsuqYxONO7ypCMfIPM2RY5-9efd-rFRxm_Z9AfHAUPk/edit?usp=sharing" target="_blank">Handbook</a>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="https://www.radremedy.org/" target="_blank">RAD Remedy</a>
+                </li>
+                <li>
+                  <a href="http://handbook.translifeline.org" target="_blank">Handbook</a>
+                </li>
+                <li>
+                  <a href="http://training.translifeline.org" target="_blank">Training Slides</a>
+                </li>
+                <li>
+                  <a href="http://faq.translifeline.org" target="_blank">FAQ</a>
+                </li>
+                <li>
+                  <a href="https://trans-lifeline.slack.com" target="_blank">Team Chat</a>
+                </li>
+              </ul>
             </li>
           <% end %>
-          <li>
-            <a href="https://www.radremedy.org/" target="_blank">Resources</a>
-          </li>
           <% if admin? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
