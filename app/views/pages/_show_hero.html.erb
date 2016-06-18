@@ -13,33 +13,4 @@
       <div style="padding:10px;"><p><a href="https://twitter.com/<%= Rails.configuration.x.twitter.screen_name %>" class="twitter-follow-button" data-show-count="false">Follow @<%= Rails.configuration.x.twitter.screen_name %></a><script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script></p></div>
     <% end %>
   </div>
-  <div id="faq">
-    <h4>Who is this line for?</h4>
-    <p>
-      This line is primarily for transgender people experiencing a crisis. This includes people who may be struggling with their gender identity and are not sure that they are transgender. While our goal is to prevent self harm, we welcome the call of any transgender person in need. We will do our very best to connect them with services that can help them meet that need. If you are not sure whether you should call or not, then please call us at <b><%= Rails.configuration.x.hotline.number %></b>.
-    </p>
-    
-    <h4>Who will answer when I call?</h4>
-    <p>
-      Our hotline is staffed by the true experts on transgender experience, transgender people themselves. Our volunteers are all trans identified and educated in the range of difficulties transgender people experience. Our volunteers are dedicated to improving the lives of transgender people. <%= link_to 'Full line up of operators', volunteers_path %>.
-    </p>
-    
-    <h4>When can I call?</h4>
-    <p>
-      Call whenever you need help.
-    </p>
-  
-    <h4>Who made this?</h4>
-    <p>
-      <% if Rails.configuration.x.hotline.organizer %>
-        <%= Rails.configuration.x.hotline.organizer %> created this hotline to help you.
-      <% end %>
-      It's powered by <%= link_to 'Pocket Hotline', 'http://www.pockethotline.com' %>, a system that provides personalized hotlines for communities.
-    </p>
-    
-    <h4>I'm not in a crisis, but I'd like to talk to someone about Trans Lifeline.</h4>
-    <p>
-      If you are a member of the press, represent other LGBT orgranizations or are otherwise looking for more information about our work, please call <%= Rails.configuration.x.hotline.organizer %> at <b>(415) 483-5361</b>. If you are in a crisis, please call our hot line number <b><%= Rails.configuration.x.hotline.number %></b> instead.
-    </p>
-  </div>
 </div>
