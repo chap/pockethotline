@@ -1,6 +1,8 @@
 PocketHotline::Application.routes.draw do
   root :to => "pages#index"
+  get "volunteer", :to => "pages#volunteer"
   get 'dashboard' => "pages#dashboard", :as => 'dashboard'
+  get 'charge', :to => "how#charge"
 
   post "twilio/start", :as => :twilio_start
   post "twilio/operator_answer", :as => :twilio_operator_answer
@@ -28,6 +30,8 @@ PocketHotline::Application.routes.draw do
   put 'share/update_widget' => "share#update_widget"
 
   get 'print' => "print#print_materials"
+
+  get '/donate', to: redirect('https://app.moonclerk.com/pay/4q0i3scndql')
 
   resources :sessions
   resources :calls
