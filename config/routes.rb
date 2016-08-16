@@ -1,5 +1,5 @@
 PocketHotline::Application.routes.draw do
-  root :to => "pages#dashboard", :as => ''dashboard'
+  root :to => "pages#dashboard"
   get "volunteer", :to => "pages#volunteer"
   get 'dashboard' => "pages#dashboard", :as => 'dashboard'
   get 'charge', :to => "how#charge"
