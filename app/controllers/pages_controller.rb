@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_filter :require_login, :only => [:dashboard]
-  
+
   def index
     @operators = User.available_to_take_calls(true)
   end
@@ -13,6 +13,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    logger.info "[PagesController] User:#{:user}, #{Time.zone.now}"
     @activites = Activity.includes([:comments => :user]).includes(:user).limit(10).order('created_at desc')
     @operators = User.active
     @operators_oncall = User.active.select {|o| o.on_call?}
