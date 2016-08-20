@@ -45,7 +45,13 @@ class User < ActiveRecord::Base
       go_off_call
       logger.info "[User] User:#{user.id} off call now, #{Time.zone.now}"
     else
-      on_call? ? go_off_call : go_on_call
+      if on_call
+        go_off_call
+        logger.info "[User] User:#{user.id} off call now, #{Time.zone.now}"
+      else
+        go_on_call
+        logger.info "[User] User:#{user.id} on call now, #{Time.zone.now}"
+      end
     end
   end
 
