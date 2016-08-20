@@ -40,10 +40,10 @@ class User < ActiveRecord::Base
     case status
     when :on
       go_on_call
-      logger.info "[User:#{self.id}] User:#{user.id} on call now, #{Time.zone.now}"
+      logger.info "[User] User:#{user.id} on call now, #{Time.zone.now}"
     when :off
       go_off_call
-      logger.info "[User:#{self.id}] User:#{user.id} off call now, #{Time.zone.now}"
+      logger.info "[User] User:#{user.id} off call now, #{Time.zone.now}"
     else
       on_call? ? go_off_call : go_on_call
     end
