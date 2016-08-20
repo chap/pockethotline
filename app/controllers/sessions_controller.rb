@@ -26,6 +26,8 @@ class SessionsController < ApplicationController
       redirect_to dashboard_url, :notice => "Logged in!"
     else
       flash.now.alert = "Invalid email or password"
+      # log failures so we can set up alerting on account hack attempts
+      logger.info "[SessionsController] Failed login for " + params[:session][:email]
       render "new"
     end
   end
