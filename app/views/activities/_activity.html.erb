@@ -1,4 +1,4 @@
-<% if !activity.admin_only? || current_user.admin? %>
+<% if current_user.admin? || current_user.on_call? %>
   <div class="activity-item" id="activity_<%= activity.id %>">
     <div class="activity-image">
       <%= image_tag(activity.user.gravatar('40').gsub('http:',''), :width => 40, :height => 40, :class => 'thumbnail') %>

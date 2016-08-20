@@ -4,7 +4,7 @@
   <title><%= page_title %></title>
   <%= csrf_meta_tag %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="Description" content="<%= @page.subhead.gsub("\n", " ") if @page %>">
+  <meta name="Description" content="Transgender crisis and suicide hotline.">
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -13,6 +13,11 @@
   <%= javascript_include_tag 'application' %>
 </head>
 <body id="<%= controller.controller_name.parameterize %>_<%= controller.action_name.parameterize %>">
+
+<div class="wrapper">
+  <div class="ribbon-wrapper"><div class="ribbon">BETA</div></div>
+</div>
+
 <div class="container">
   <%= render 'layouts/header' %>
 
@@ -31,6 +36,5 @@
     </p>
   </footer>
 </div>
-
 </body>
 </html>

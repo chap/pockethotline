@@ -1,6 +1,6 @@
 module ApplicationHelper
   def page_title
-    
+    Rails.configuration.x.hotline.name + " - " + pretty_hotline_number(Rails.configuration.x.hotline.number) + " - " + Rails.configuration.x.hotline.description
   end
 
   def active_button_class(button)

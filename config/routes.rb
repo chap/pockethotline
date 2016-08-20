@@ -1,7 +1,6 @@
 PocketHotline::Application.routes.draw do
-  root :to => "pages#index"
+  root :to => "pages#dashboard"
   get "volunteer", :to => "pages#volunteer"
-  get "volunteers", :to => "pages#volunteers"
   get 'dashboard' => "pages#dashboard", :as => 'dashboard'
   get 'charge', :to => "how#charge"
 
@@ -30,6 +29,8 @@ PocketHotline::Application.routes.draw do
   get 'share' => "share#widget"
   put 'share/update_widget' => "share#update_widget"
 
+  get 'print' => "print#print_materials"
+
   resources :sessions
   resources :calls
   resources :users do
@@ -48,8 +49,12 @@ PocketHotline::Application.routes.draw do
         get 'all'
       end
     end
-    resources :calls, :only => [:index]
+    resources :calls
     resources :activities, :only => [:index]
+  end
+
+  namespace :admin do
+    resources :users
   end
 
   resources :activities, :only => [:create, :index, :show] do

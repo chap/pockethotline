@@ -4,14 +4,14 @@
   <div class="control-group">
     <%= f.label :email, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :email %>
+      <%= f.text_field :email, autocapitalize: 'off' %>
     </div>
   </div>
 
   <div class="control-group">
     <%= f.label :password, :class => 'control-label' %>
     <div class="controls">
-      <%= f.password_field :password %>
+      <%= f.password_field :password, autocapitalize: 'off' %>
     </div>
   </div>
 

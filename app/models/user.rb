@@ -1,26 +1,25 @@
 class User < ActiveRecord::Base
-  attr_accessor :password, :admin_creating_user, :user_applying, :user_updating_themselves, :skip_password_validation
+  attr_accessor :password, :admin_creating_user, :admin_updating_user, :user_applying, :user_updating_themselves, :skip_password_validation
   attr_accessible :email, :password, :password_confirmation, :phone, :name, :admin_creating_user, :twitter, :bio, :newsletter_emails, :schedule_emails, :user_updating_themselves, :skip_password_validation, :admins_notified_of_first_availability_at, :deleted_at
 
   belongs_to :account
   has_many :calls, :foreign_key => 'operator_id', :order => 'answered_at desc'
   has_many :status_updates, :dependent => :destroy, :order => 'started_at asc'
+  has_many :points, :dependent => :destroy, :order => 'created_at desc'
   has_many :reviews, :order => 'created_at desc', :foreign_key => 'operator_id'
   has_many :oncall_schedules, :order => 'wday desc'
   has_many :comments, :order => 'created_at desc'
   has_many :activities, :order => 'created_at desc'
-  
+
   before_save :encrypt_password, :unless => :no_password_required
   before_create :set_token
-  
+
   validates_confirmation_of :password, :unless => :no_password_required
   validates_presence_of :password, :unless => :no_password_required
-  validates_presence_of :email
   validates_presence_of :name
-  validates_uniqueness_of :email
-  validates_uniqueness_of :phone
-  validates :phone, :phone => true, :unless => Proc.new {|u| u.phone.blank? }
-  validates :phone, :presence => true, :unless => Proc.new {|u| u.admin_creating_user }
+  validates_uniqueness_of :email, :scope => :deleted_at
+  validates_uniqueness_of :phone, :scope => :deleted_at, :unless => Proc.new {|u| u.phone.blank? }
+  validates :phone, :presence => true, :unless => Proc.new {|u| u.admin_creating_user || u.admin_updating_user }
   validates :email, :presence => true, :email_format => true
 
   scope :on_call, where(:on_call => true)
@@ -41,10 +40,18 @@ class User < ActiveRecord::Base
     case status
     when :on
       go_on_call
+      logger.info "[User] User:#{params[:id]} on call now, #{Time.zone.now}"
     when :off
       go_off_call
+      logger.info "[User] User:#{params[:id]} off call now, #{Time.zone.now}"
     else
-      on_call? ? go_off_call : go_on_call
+      if on_call
+        go_off_call
+        logger.info "[User] User:#{params[:id]} off call now, #{Time.zone.now}"
+      else
+        go_on_call
+        logger.info "[User] User:#{params[:id]} on call now, #{Time.zone.now}"
+      end
     end
   end
 
@@ -72,6 +79,12 @@ class User < ActiveRecord::Base
     if on_call_span && on_call_span.open?
       on_call_span.update_attributes(:ended_at => Time.now)
     end
+
+    calls.where(:ended_at => nil).each do |open_call|
+      open_call.ended_at = Time.now
+      open_call.save
+    end
+
     self.update_attribute(:on_call, false)
   end
   private :go_off_call

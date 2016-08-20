@@ -18,9 +18,10 @@ gem 'twitter', '~> 4.6.2'
 gem 'stripe', '~> 1.5.24'
 gem 'unicorn'
 gem 'custom_configuration', '~> 0.0.2'
+gem 'haml'
 
 group :assets do
-  gem 'less', '~> 2.0.8'
+  # gem 'less', '~> 2.0.8'
   gem 'sass-rails', "  ~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier', '~> 1.1.0'
@@ -30,4 +31,13 @@ group :development, :test do
   gem 'wirble'
   gem 'ffaker', '1.5.0'
   gem 'timecop'
+
+  # Just some stuff added for ease of development; feel free to
+  # comment out anything temporarily if it gives you trouble.
+  gem 'therubyracer'
+  gem 'sqlite3'
+  gem "rb-readline"
+  gem "pry-debugger"
+  gem "rspec-rails"
+  gem "factory_girl_rails"
 end

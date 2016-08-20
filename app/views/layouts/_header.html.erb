@@ -25,10 +25,7 @@
       <div class="nav-collapse collapse">
         <ul class="nav">
           <% unless logged_in? %>
-            <%= active_link_to 'Join', join_path %>
-            <% if Rails.configuration.x.sponsors.on %>
-              <%= active_link_to 'Support', support_path, controller?('sponsors') %>
-            <% end %>
+            <%= active_link_to 'Join', 'http://apply.translifeline.org' %>
           <% end %>
           <% if logged_in? %>
             <%= active_link_to (current_user.admin? ? 'Dashboard' : 'My Dashboard'), dashboard_path, controller?('accounts') && action?('show') %>
@@ -42,7 +39,29 @@
             <% else %>
               <%= active_link_to 'My Calls', user_calls_path(:current), controller?('calls') %>
             <% end %>
-            <%= active_link_to 'Share', widget_path, controller?('share') %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="https://www.radremedy.org/" target="_blank">RAD Remedy</a>
+                </li>
+                <li>
+                  <a href="http://handbook.translifeline.org" target="_blank">Handbook</a>
+                </li>
+                <li>
+                  <a href="http://training.translifeline.org" target="_blank">Training Slides</a>
+                </li>
+                <li>
+                  <a href="http://faq.translifeline.org" target="_blank">FAQ</a>
+                </li>
+                <li>
+                  <a href="http://slack.translifeline.org" target="_blank">Team Chat</a>
+                </li>
+                <li>
+                  <a href="http://slack-signup.translifeline.org" target="_blank">Sign up for Team Chat</a>
+                </li>
+              </ul>
+            </li>
           <% end %>
           <% if admin? %>
             <li class="dropdown">
