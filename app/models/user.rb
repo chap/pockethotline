@@ -10,10 +10,10 @@ class User < ActiveRecord::Base
   has_many :oncall_schedules, :order => 'wday desc'
   has_many :comments, :order => 'created_at desc'
   has_many :activities, :order => 'created_at desc'
-  
+
   before_save :encrypt_password, :unless => :no_password_required
   before_create :set_token
-  
+
   validates_confirmation_of :password, :unless => :no_password_required
   validates_presence_of :password, :unless => :no_password_required
   validates_presence_of :name
@@ -40,8 +40,10 @@ class User < ActiveRecord::Base
     case status
     when :on
       go_on_call
+      logger.info "[User:#{self.id}] User:#{user.id} on call now, #{Time.zone.now}"
     when :off
       go_off_call
+      logger.info "[User:#{self.id}] User:#{user.id} off call now, #{Time.zone.now}"
     else
       on_call? ? go_off_call : go_on_call
     end
@@ -71,12 +73,12 @@ class User < ActiveRecord::Base
     if on_call_span && on_call_span.open?
       on_call_span.update_attributes(:ended_at => Time.now)
     end
-    
+
     calls.where(:ended_at => nil).each do |open_call|
       open_call.ended_at = Time.now
       open_call.save
     end
-    
+
     self.update_attribute(:on_call, false)
   end
   private :go_off_call

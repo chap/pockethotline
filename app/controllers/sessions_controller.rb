@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
     if user
       # login user
       login(user)
+      logger.info "[SessionsController:#{self.id}] User:#{user.id} logged in, #{Time.zone.now}"
       url = session[:return_to] ? session[:return_to] : root_url
       url = root_url if url.include?('/login')
       session[:return_to] = nil
