@@ -17,6 +17,19 @@ class CallsController < ApplicationController
 
   end
 
+  def update 
+
+    # @call = Call.find(params)
+    # if @call.caller.blocked
+    #   @call.caller.blocked = false
+    # else 
+    #   @call.caller.blocked = true
+    # end
+    # @call.caller.save
+    render 'edit'
+  end
+
+
   private
   def find_user
     if params[:user_id]
@@ -26,5 +39,10 @@ class CallsController < ApplicationController
       end
       user
     end
+  end
+
+  private
+  def call_params
+    params.require(:call).permit(:blocked)
   end
 end

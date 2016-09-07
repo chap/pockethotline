@@ -34,7 +34,7 @@
         <tr>
           <td class="operator" style="width:50%">
             <%= link_to image_tag(operator.gravatar('40').gsub('http:',''), :class => "ad_image", :width => 40, :height => 40), edit_user_path(operator) %>
-            <h4><%= link_to operator.name, edit_user_path(operator) %></h4>
+            <h4><%= link_to operator.name, edit_user_path(operator) %> <%= total_time_on_calls(operator) %></h4>
             <% if operator.on_call? %>
               <span class="label label-success">on call</span>
             <% end %>

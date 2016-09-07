@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include UrlHelper
   protect_from_forgery
   before_filter :set_time_zone
+  after_filter :set_access_control_headers
 
   private
 
@@ -23,7 +24,7 @@ class ApplicationController < ActionController::Base
         when Mime::XML, Mime::JSON
           render text: '<htmtl><body>You must be an admin of your account to access this.</body></htmtl>', status: 401
         else
-          render :text => 'Nope.'
+          render :text => 'Nope.', :status => 401
         end
       else
         require_login
@@ -67,5 +68,10 @@ class ApplicationController < ActionController::Base
     Rails.configuration.x.s3.bucket.present? &&
     Rails.configuration.x.s3.access_key_id.present? &&
     Rails.configuration.x.s3.secret_access_key.present?
+  end
+  
+  def set_access_control_headers 
+    headers['Access-Control-Allow-Origin'] = '*' 
+    headers['Access-Control-Request-Method'] = 'GET' 
   end
 end

@@ -128,7 +128,8 @@ class UsersController < ApplicationController
 
     if @user.save
       UserMailer.welcome(@user).deliver
-      redirect_to("Invite email sent to #{@user.email}", :notice => notice)
+      notice = "Invite email sent to #{@user.email}"
+      redirect_to({:action => "index"}, {:notice => notice})
     else
       render :action => "new"
     end

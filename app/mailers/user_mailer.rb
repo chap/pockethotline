@@ -2,6 +2,9 @@ class UserMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
   default :from  => "#{Rails.configuration.x.hotline.name} <#{Rails.configuration.x.hotline.organizer_email}>"
 
+
+  ADMIN_EMAIL = "volunteer@translifeline.org"
+
   def welcome(user)
     @user    = user
 
@@ -21,7 +24,7 @@ class UserMailer < ActionMailer::Base
   def user_applied(user)
     @user    = user
 
-    mail :to => User.admin.collect(&:email),
+    mail :to => ADMIN_EMAIL,
          :subject => "New applicant for the #{Rails.configuration.x.hotline.name}"
   end
 
@@ -48,24 +51,24 @@ class UserMailer < ActionMailer::Base
   def notify_admin_of_activity_post(activity, link)
     @link = link
     @activity = activity
-    mail :to => User.admin.collect(&:email),
+    mail :to => ADMIN_EMAIL,
          :subject => "New Activity: #{truncate(@activity.body)}"
   end
 
   def notify_admin_of_caller_review(review)
     @review = review
-    mail :to => User.admin.collect(&:email),
+    mail :to => ADMIN_EMAIL,
          :subject => "New Review From Caller: #{truncate(@review.question)}"
   end
 
   def notify_admin_of_volunteers_first_availability(user, admin)
     @user = user
     @end_time = OncallSchedule.end_time_for_user(@user)
-    mail :to => User.admin.collect(&:email),
+    mail :to => ADMIN_EMAIL,
          :subject => "#{@user.name} is on-call for the first time"
   end
 
-  def vard_string
+  def vcard_string
     <<-eos.strip_heredoc
       BEGIN:VCARD
       VERSION:3.0

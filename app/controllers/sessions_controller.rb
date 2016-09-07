@@ -19,12 +19,15 @@ class SessionsController < ApplicationController
     if user
       # login user
       login(user)
+      logger.info "[SessionsController] User:#{user.id} logged in, #{Time.zone.now}"
       url = session[:return_to] ? session[:return_to] : root_url
       url = root_url if url.include?('/login')
       session[:return_to] = nil
       redirect_to dashboard_url, :notice => "Logged in!"
     else
       flash.now.alert = "Invalid email or password"
+      # log failures so we can set up alerting on account hack attempts
+      logger.info "[SessionsController] Failed login for " + params[:session][:email]
       render "new"
     end
   end

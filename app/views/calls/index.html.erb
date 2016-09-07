@@ -19,6 +19,9 @@
       <th>
         Call Time
       </th>
+      <!-- <th>
+        Block
+      </th> -->
       <th>
         Duration
       </th>
@@ -34,10 +37,15 @@
           <td>
             <%= call.caller.city.titleize + ',' if call.caller.city.present? %> <%= call.caller.state %>
             <%= number_to_phone(call.caller.phone.gsub('+1', '')) if call.caller && call.caller.phone %>
-          </td>
+           </td>
         <% end %>
         <td>
           <%= call.started_at.strftime("%D %l:%M %p %Z") %>
+        </td>
+        <td> 
+        <!--   < % = form_for :call, url: call_path(call), method: :patch do |f| % >
+          < %  = f.submit call.id % >
+          < % end % > -->
         </td>
         <td>
           <%= link_to_if call.twilio_recording_url.present? && current_user.admin?, call.timecode, call.twilio_recording_url %>
