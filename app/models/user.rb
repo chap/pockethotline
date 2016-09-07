@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   def notify_admins_of_volunteers_first_availability
     if on_call? && admins_notified_of_first_availability_at.blank?
       User.admin.active.receive_volunteers_first_availability.each do |admin|
-        UserMailer.notify_admin_of_volunteers_first_availability(self, admin).deliver
+       # UserMailer.notify_admin_of_volunteers_first_availability(self, admin).deliver
       end
       self.update_attributes!(:admins_notified_of_first_availability_at => Time.now, :skip_password_validation => true, :admin_creating_user => true)
     end
